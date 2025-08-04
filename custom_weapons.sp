@@ -2787,7 +2787,11 @@ bool:Menu_ShowWeapon(client, const String:weapon[], const String:title[])
 			KvGetString(hKv, g_sClLang[client], buffer, sizeof(buffer));
 			if (!buffer[0])
 			{
-				strcopy(buffer, sizeof(buffer), section);
+				KvGetString(hKv, g_sServLang, buffer, sizeof(buffer));
+				if (!buffer[0])
+				{
+					strcopy(buffer, sizeof(buffer), section);
+				}
 			}
 			
 			new bits = KvGetNum(hKv, "flag_bits");
