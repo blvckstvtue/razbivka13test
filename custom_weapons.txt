@@ -1,0 +1,2770 @@
+// Кодировка UTF-8 без BOM
+
+"Weapons"
+{
+	"ak47"		// Оружие (секция) без тэга "weapon_", "_projectile" и "planted_"
+	{
+		"flags"		""			// Флаги доступа
+		// Отображение названия на разных языках, если не найдено отображение, будет использован название секции
+		"ru"       "AK-47"
+		"en"       "AK-47"
+		// Категории, в каком меню будет отображаться данное оружие
+		// 0	-	Автоматы
+		// 1	-	Пистолеты-пулеметы
+		// 2	-	Дробовики
+		// 3	-	Пистолеты
+		// 4	-	Ближний бой
+		// 5	-	Взрывные
+		"category" "0"
+
+		"wildrose" // Под-выбор модели для оружия
+		{
+			"flags"		""			// Флаги доступа. Можно указывать несколько флагов или оставьте пустым, чтобы сделать доступным для всех
+			
+			// Отображение названия на разных языках, если не найдено отображение, будет использован название секции
+			"ru"	"Wild Rose"
+			"en"	"Wild Rose"
+
+			"view_model"  "models/drweapon2025/ak47/ak47_atm_1.mdl"
+			"world_model" "models/drweapon2025/ak47/w_ak47_atm_weapon.mdl"
+			"planted_world_model"	""		// Путь до модели установленной бомбы (Только для C4 бомбы)
+			"skin"        "1"          // първото skinfamily
+			"max_skin"    "7"          // максимален брой скинове (0-4 = 5 скина)
+			"flip_view_model"   "1"
+
+			"Sequences"		// Перенаправление индексов анимации
+			{
+			}
+		}
+
+		"agentdark"
+		{
+			"flags"		""
+
+			"ru"	"Agent Dark"
+			"en"	"Agent Dark"
+
+			"view_model"  "models/drweapon2025/ak47/ak47_atm_1.mdl"
+			"world_model" "models/drweapon2025/ak47/w_ak47_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "8"
+			"max_skin"    "15"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"cartel"
+		{
+			"flags"		""
+
+			"ru"	"Cartel"
+			"en"	"Cartel"
+
+			"view_model"  "models/drweapon2025/ak47/ak47_atm_1.mdl"
+			"world_model" "models/drweapon2025/ak47/w_ak47_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "16"
+			"max_skin"    "23"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"discharge"
+		{
+			"flags"		""
+
+			"ru"	"Discharge"
+			"en"	"Discharge"
+
+			"view_model"  "models/drweapon2025/ak47/ak47_atm_1.mdl"
+			"world_model" "models/drweapon2025/ak47/w_ak47_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "24"
+			"max_skin"    "31"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"electrongold"
+		{
+			"flags"		""
+
+			"ru"	"Electron Gold"
+			"en"	"Electron Gold"
+
+			"view_model"  "models/drweapon2025/ak47/ak47_atm_1.mdl"
+			"world_model" "models/drweapon2025/ak47/w_ak47_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "32"
+			"max_skin"    "39"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"goodnight"
+		{
+			"flags"		""
+
+			"ru"	"Good Night"
+			"en"	"Good Night"
+
+			"view_model"  "models/drweapon2025/ak47/ak47_atm_1.mdl"
+			"world_model" "models/drweapon2025/ak47/w_ak47_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "40"
+			"max_skin"    "47"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"nightmaredark"
+		{
+			"flags"		""
+
+			"ru"	"Nightmare Dark"
+			"en"	"Nightmare Dark"
+
+			"view_model"  "models/drweapon2025/ak47/ak47_atm_1.mdl"
+			"world_model" "models/drweapon2025/ak47/w_ak47_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "48"
+			"max_skin"    "55"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"printstream"
+		{
+			"flags"		""
+
+			"ru"	"Printstream"
+			"en"	"Printstream"
+
+			"view_model"  "models/drweapon2025/ak47/ak47_atm_1.mdl"
+			"world_model" "models/drweapon2025/ak47/w_ak47_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "56"
+			"max_skin"    "63"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"something"
+		{
+			"flags"		""
+
+			"ru"	"Something"
+			"en"	"Something"
+
+			"view_model"  "models/drweapon2025/ak47/ak47_atm_1.mdl"
+			"world_model" "models/drweapon2025/ak47/w_ak47_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "64"
+			"max_skin"    "71"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"bloodpainter"
+		{
+			"flags"		""
+
+			"ru"	"Blood Painter"
+			"en"	"Blood Painter"
+
+			"view_model"  "models/drweapon2025/ak47/ak47_atm_1.mdl"
+			"world_model" "models/drweapon2025/ak47/w_ak47_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "72"
+			"max_skin"    "79"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"thelegacy"
+		{
+			"flags"		""
+
+			"ru"	"The Legacy"
+			"en"	"The Legacy"
+
+			"view_model"  "models/drweapon2025/ak47/ak47_atm_1.mdl"
+			"world_model" "models/drweapon2025/ak47/w_ak47_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "80"
+			"max_skin"    "87"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"agentred"
+		{
+			"flags"		""
+
+			"ru"	"Agent Red"
+			"en"	"Agent Red"
+
+			"view_model"  "models/drweapon2025/ak47/ak47_atm_1.mdl"
+			"world_model" "models/drweapon2025/ak47/w_ak47_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "88"
+			"max_skin"    "95"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"welcometocircus"
+		{
+			"flags"		""
+
+			"ru"	"Welcome to Circus"
+			"en"	"Welcome to Circus"
+
+			"view_model"  "models/drweapon2025/ak47/ak47_atm_1.mdl"
+			"world_model" "models/drweapon2025/ak47/w_ak47_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "96"
+			"max_skin"    "103"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"bleedingmachine"
+		{
+			"flags"		""
+
+			"ru"	"Bleeding Machine"
+			"en"	"Bleeding Machine"
+
+			"view_model"  "models/cwr_byryzhiy_plugin/ak47/ak47_cwr_byryzhiy.mdl"
+			"world_model" "models/cwr_byryzhiy_plugin/ak47/w_ak47_cwr_byryzhiy.mdl"
+			"planted_world_model"	""
+			"skin"        "20"
+			"max_skin"    "24"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+	}
+
+	"aug"		// Оружие (секция) без тэга "weapon_", "_projectile" и "planted_"
+	{
+		"flags"		""			// Флаги доступа
+		// Отображение названия на разных языках, если не найдено отображение, будет использован название секции
+		"ru"       "AUG"
+		"en"       "AUG"
+		// Категории, в каком меню будет отображаться данное оружие
+		// 0	-	Автоматы
+		// 1	-	Пистолеты-пулеметы
+		// 2	-	Дробовики
+		// 3	-	Пистолеты
+		// 4	-	Ближний бой
+		// 5	-	Взрывные
+		"category" "0"
+
+		"crane" // Под-выбор модели для оружия
+		{
+			"flags"		""			// Флаги доступа. Можно указывать несколько флагов или оставьте пустым, чтобы сделать доступным для всех
+			
+			// Отображение названия на разных языках, если не найдено отображение, будет использован название секции
+			"ru"	"Crane"
+			"en"	"Crane"
+
+			"view_model"  "models/drweapon2025/aug/aug_atm_1.mdl"
+			"world_model" "models/drweapon2025/aug/w_aug_atm_weapon.mdl"
+			"planted_world_model"	""		// Путь до модели установленной бомбы (Только для C4 бомбы)
+			"skin"        "1"          // първото skinfamily
+			"max_skin"    "7"          // максимален брой скинове (0-4 = 5 скина)
+			"flip_view_model"   "1"
+
+			"Sequences"		// Перенаправление индексов анимации
+			{
+			}
+		}
+
+		"elpatrongold"
+		{
+			"flags"		""
+			
+			"ru"	"El Patron Gold"
+			"en"	"El Patron Gold"
+
+			"view_model"  "models/drweapon2025/aug/aug_atm_1.mdl"
+			"world_model" "models/drweapon2025/aug/w_aug_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "8"
+			"max_skin"    "15"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"samauraisayonara"
+		{
+			"flags"		""
+			
+			"ru"	"Samurai Sayonara"
+			"en"	"Samurai Sayonara"
+
+			"view_model"  "models/drweapon2025/aug/aug_atm_1.mdl"
+			"world_model" "models/drweapon2025/aug/w_aug_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "16"
+			"max_skin"    "23"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"schoolboard"
+		{
+			"flags"		""
+			
+			"ru"	"Schoolboard"
+			"en"	"Schoolboard"
+
+			"view_model"  "models/drweapon2025/aug/aug_atm_1.mdl"
+			"world_model" "models/drweapon2025/aug/w_aug_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "24"
+			"max_skin"    "31"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+	}
+
+	"awp"		// Оружие (секция) без тэга "weapon_", "_projectile" и "planted_"
+	{
+		"flags"		""			// Флаги доступа
+		// Отображение названия на разных языках, если не найдено отображение, будет использован название секции
+		"ru"       "AWP"
+		"en"       "AWP"
+		// Категории, в каком меню будет отображаться данное оружие
+		// 0	-	Автоматы
+		// 1	-	Пистолеты-пулеметы
+		// 2	-	Дробовики
+		// 3	-	Пистолеты
+		// 4	-	Ближний бой
+		// 5	-	Взрывные
+		"category" "0"
+
+		"ancientserpent" // Под-выбор модели для оружия
+		{
+			"flags"		""			// Флаги доступа. Можно указывать несколько флагов или оставьте пустым, чтобы сделать доступным для всех
+			
+			// Отображение названия на разных языках, если не найдено отображение, будет использован название секции
+			"ru"	"Ancient Serpent"
+			"en"	"Ancient Serpent"
+
+			"view_model"  "models/drweapon2025/awp/awp_atm_1.mdl"
+			"world_model" "models/drweapon2025/awp/w_awp_atm_weapon_fix.mdl"
+			"planted_world_model"	""		// Путь до модели установленной бомбы (Только для C4 бомбы)
+			"skin"        "1"          // първото skinfamily
+			"max_skin"    "7"          // максимален брой скинове (0-4 = 5 скина)
+			"flip_view_model"   "1"
+
+			"Sequences"		// Перенаправление индексов анимации
+			{
+			}
+		}
+
+		"darkmatter"
+		{
+			"flags"		""
+			
+			"ru"	"Dark Matter"
+			"en"	"Dark Matter"
+
+			"view_model"  "models/drweapon2025/awp/awp_atm_1.mdl"
+			"world_model" "models/drweapon2025/awp/w_awp_atm_weapon_fix.mdl"
+			"planted_world_model"	""
+			"skin"        "8"
+			"max_skin"    "15"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"electronred"
+		{
+			"flags"		""
+			
+			"ru"	"Electron Red"
+			"en"	"Electron Red"
+
+			"view_model"  "models/drweapon2025/awp/awp_atm_1.mdl"
+			"world_model" "models/drweapon2025/awp/w_awp_atm_weapon_fix.mdl"
+			"planted_world_model"	""
+			"skin"        "16"
+			"max_skin"    "23"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"electronwhite"
+		{
+			"flags"		""
+			
+			"ru"	"Electron White"
+			"en"	"Electron White"
+
+			"view_model"  "models/drweapon2025/awp/awp_atm_1.mdl"
+			"world_model" "models/drweapon2025/awp/w_awp_atm_weapon_fix.mdl"
+			"planted_world_model"	""
+			"skin"        "24"
+			"max_skin"    "31"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"elpatrongoldv2"
+		{
+			"flags"		""
+			
+			"ru"	"El Patron Gold V2"
+			"en"	"El Patron Gold V2"
+
+			"view_model"  "models/drweapon2025/awp/awp_atm_1.mdl"
+			"world_model" "models/drweapon2025/awp/w_awp_atm_weapon_fix.mdl"
+			"planted_world_model"	""
+			"skin"        "32"
+			"max_skin"    "39"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"eternaldragon"
+		{
+			"flags"		""
+			
+			"ru"	"Eternal Dragon"
+			"en"	"Eternal Dragon"
+
+			"view_model"  "models/drweapon2025/awp/awp_atm_1.mdl"
+			"world_model" "models/drweapon2025/awp/w_awp_atm_weapon_fix.mdl"
+			"planted_world_model"	""
+			"skin"        "40"
+			"max_skin"    "47"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"hunterrune"
+		{
+			"flags"		""
+			
+			"ru"	"Hunter Rune"
+			"en"	"Hunter Rune"
+
+			"view_model"  "models/drweapon2025/awp/awp_atm_1.mdl"
+			"world_model" "models/drweapon2025/awp/w_awp_atm_weapon_fix.mdl"
+			"planted_world_model"	""
+			"skin"        "48"
+			"max_skin"    "55"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"imwatchingu"
+		{
+			"flags"		""
+			
+			"ru"	"Watching You"
+			"en"	"Watching You"
+
+			"view_model"  "models/drweapon2025/awp/awp_atm_1.mdl"
+			"world_model" "models/drweapon2025/awp/w_awp_atm_weapon_fix.mdl"
+			"planted_world_model"	""
+			"skin"        "56"
+			"max_skin"    "63"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"kawai"
+		{
+			"flags"		""
+			
+			"ru"	"Kawai"
+			"en"	"Kawai"
+
+			"view_model"  "models/drweapon2025/awp/awp_atm_1.mdl"
+			"world_model" "models/drweapon2025/awp/w_awp_atm_weapon_fix.mdl"
+			"planted_world_model"	""
+			"skin"        "64"
+			"max_skin"    "71"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"mixan"
+		{
+			"flags"		""
+			
+			"ru"	"Mixan"
+			"en"	"Mixan"
+
+			"view_model"  "models/drweapon2025/awp/awp_atm_1.mdl"
+			"world_model" "models/drweapon2025/awp/w_awp_atm_weapon_fix.mdl"
+			"planted_world_model"	""
+			"skin"        "72"
+			"max_skin"    "79"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"polyfade"
+		{
+			"flags"		""
+			
+			"ru"	"Poly Fade"
+			"en"	"Poly Fade"
+
+			"view_model"  "models/drweapon2025/awp/awp_atm_1.mdl"
+			"world_model" "models/drweapon2025/awp/w_awp_atm_weapon_fix.mdl"
+			"planted_world_model"	""
+			"skin"        "80"
+			"max_skin"    "87"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"quindynasty"
+		{
+			"flags"		""
+			
+			"ru"	"Quin Dynasty"
+			"en"	"Quin Dynasty"
+
+			"view_model"  "models/drweapon2025/awp/awp_atm_1.mdl"
+			"world_model" "models/drweapon2025/awp/w_awp_atm_weapon_fix.mdl"
+			"planted_world_model"	""
+			"skin"        "88"
+			"max_skin"    "95"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"righteousstory"
+		{
+			"flags"		""
+			
+			"ru"	"Righteous Story"
+			"en"	"Righteous Story"
+
+			"view_model"  "models/drweapon2025/awp/awp_atm_1.mdl"
+			"world_model" "models/drweapon2025/awp/w_awp_atm_weapon_fix.mdl"
+			"planted_world_model"	""
+			"skin"        "96"
+			"max_skin"    "103"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"shootingstars"
+		{
+			"flags"		""
+			
+			"ru"	"Shooting Stars"
+			"en"	"Shooting Stars"
+
+			"view_model"  "models/drweapon2025/awp/awp_atm_1.mdl"
+			"world_model" "models/drweapon2025/awp/w_awp_atm_weapon_fix.mdl"
+			"planted_world_model"	""
+			"skin"        "104"
+			"max_skin"    "111"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"crimsonweb"
+		{
+			"flags"		""
+			
+			"ru"	"Crimson Web"
+			"en"	"Crimson Web"
+
+			"view_model"  "models/cwr_byryzhiy_plugin/awp/awp_cwr_byryzhiy.mdl"
+			"world_model" "models/cwr_byryzhiy_plugin/awp/w_awp_cwr_byryzhiy.mdl"
+			"planted_world_model"	""
+			"skin"        "15"
+			"max_skin"    "19"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"darkmaze"
+		{
+			"flags"		""
+			
+			"ru"	"Dark Maze"
+			"en"	"Dark Maze"
+
+			"view_model"  "models/cwr_byryzhiy_plugin/awp/awp_cwr_byryzhiy.mdl"
+			"world_model" "models/cwr_byryzhiy_plugin/awp/w_awp_cwr_byryzhiy.mdl"
+			"planted_world_model"	""
+			"skin"        "20"
+			"max_skin"    "24"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+	}
+
+	"deagle"		// Оружие (секция) без тэга "weapon_", "_projectile" и "planted_"
+	{
+		"flags"		""			// Флаги доступа
+		// Отображение названия на разных языках, если не найдено отображение, будет использован название секции
+		"ru"       "Deagle"
+		"en"       "Deagle"
+		// Категории, в каком меню будет отображаться данное оружие
+		// 0	-	Автоматы
+		// 1	-	Пистолеты-пулеметы
+		// 2	-	Дробовики
+		// 3	-	Пистолеты
+		// 4	-	Ближний бой
+		// 5	-	Взрывные
+		"category" "3"
+
+		"comicstyle" // Под-выбор модели для оружия
+		{
+			"flags"		""			// Флаги доступа. Можно указывать несколько флагов или оставьте пустым, чтобы сделать доступным для всех
+			
+			// Отображение названия на разных языках, если не найдено отображение, будет использован название секции
+			"ru"	"Comic Style"
+			"en"	"Comic Style"
+
+			"view_model"  "models/drweapon2025/deagle/deagle_atm_1.mdl"
+			"world_model" "models/drweapon2025/deagle/w_deagle_atm_weapon.mdl"
+			"planted_world_model"	""		// Путь до модели установленной бомбы (Только для C4 бомбы)
+			"skin"        "8"          // първото skinfamily
+			"max_skin"    "15"          // максимален брой скинове (0-4 = 5 скина)
+			"flip_view_model"   "1"
+
+			"Sequences"		// Перенаправление индексов анимации
+			{
+			}
+		}
+
+		"crystalclear"
+		{
+			"flags"		""
+			
+			"ru"	"Crystal Clear"
+			"en"	"Crystal Clear"
+
+			"view_model"  "models/drweapon2025/deagle/deagle_atm_1.mdl"
+			"world_model" "models/drweapon2025/deagle/w_deagle_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "16"
+			"max_skin"    "23"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"energycoil"
+		{
+			"flags"		""
+			
+			"ru"	"Energy Coil"
+			"en"	"Energy Coil"
+
+			"view_model"  "models/drweapon2025/deagle/deagle_atm_1.mdl"
+			"world_model" "models/drweapon2025/deagle/w_deagle_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "24"
+			"max_skin"    "31"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"heat"
+		{
+			"flags"		""
+			
+			"ru"	"HEAT"
+			"en"	"HEAT"
+
+			"view_model"  "models/drweapon2025/deagle/deagle_atm_1.mdl"
+			"world_model" "models/drweapon2025/deagle/w_deagle_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "32"
+			"max_skin"    "39"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"juan"
+		{
+			"flags"		""
+			
+			"ru"	"Juan"
+			"en"	"Juan"
+
+			"view_model"  "models/drweapon2025/deagle/deagle_atm_1.mdl"
+			"world_model" "models/drweapon2025/deagle/w_deagle_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "88"
+			"max_skin"    "95"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"lightfog"
+		{
+			"flags"		""
+			
+			"ru"	"Light Fog"
+			"en"	"Light Fog"
+
+			"view_model"  "models/drweapon2025/deagle/deagle_atm_1.mdl"
+			"world_model" "models/drweapon2025/deagle/w_deagle_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "96"
+			"max_skin"    "103"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"lucker"
+		{
+			"flags"		""
+			
+			"ru"	"Lucker"
+			"en"	"Lucker"
+
+			"view_model"  "models/drweapon2025/deagle/deagle_atm_1.mdl"
+			"world_model" "models/drweapon2025/deagle/w_deagle_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "104"
+			"max_skin"    "111"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"navysec"
+		{
+			"flags"		""
+			
+			"ru"	"Navy Sec"
+			"en"	"Navy Sec"
+
+			"view_model"  "models/drweapon2025/deagle/deagle_atm_1.mdl"
+			"world_model" "models/drweapon2025/deagle/w_deagle_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "112"
+			"max_skin"    "119"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"overcharged"
+		{
+			"flags"		""
+			
+			"ru"	"Overcharged"
+			"en"	"Overcharged"
+
+			"view_model"  "models/drweapon2025/deagle/deagle_atm_1.mdl"
+			"world_model" "models/drweapon2025/deagle/w_deagle_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "56"
+			"max_skin"    "63"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"overdrive"
+		{
+			"flags"		""
+			
+			"ru"	"Overdrive"
+			"en"	"Overdrive"
+
+			"view_model"  "models/drweapon2025/deagle/deagle_atm_1.mdl"
+			"world_model" "models/drweapon2025/deagle/w_deagle_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "64"
+			"max_skin"    "71"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"plasmatic"
+		{
+			"flags"		""
+			
+			"ru"	"Plasmatic"
+			"en"	"Plasmatic"
+
+			"view_model"  "models/drweapon2025/deagle/deagle_atm_1.mdl"
+			"world_model" "models/drweapon2025/deagle/w_deagle_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "72"
+			"max_skin"    "79"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"schematic"
+		{
+			"flags"		""
+			
+			"ru"	"Schematic"
+			"en"	"Schematic"
+
+			"view_model"  "models/drweapon2025/deagle/deagle_atm_1.mdl"
+			"world_model" "models/drweapon2025/deagle/w_deagle_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "80"
+			"max_skin"    "87"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"starwarsv2"
+		{
+			"flags"		""
+			
+			"ru"	"Star Wars V2"
+			"en"	"Star Wars V2"
+
+			"view_model"  "models/drweapon2025/deagle/deagle_atm_1.mdl"
+			"world_model" "models/drweapon2025/deagle/w_deagle_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "1" // 0 има проблем, оставяме го от 1 до 7
+			"max_skin"    "7"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"tiburon"
+		{
+			"flags"		""
+			
+			"ru"	"Tiburon"
+			"en"	"Tiburon"
+
+			"view_model"  "models/drweapon2025/deagle/deagle_atm_1.mdl"
+			"world_model" "models/drweapon2025/deagle/w_deagle_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "40"
+			"max_skin"    "47"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"triggerhappy"
+		{
+			"flags"		""
+			
+			"ru"	"Trigger Happy"
+			"en"	"Trigger Happy"
+
+			"view_model"  "models/drweapon2025/deagle/deagle_atm_1.mdl"
+			"world_model" "models/drweapon2025/deagle/w_deagle_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "48"
+			"max_skin"    "55"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"equalizer"
+		{
+			"flags"		""
+			
+			"ru"	"Equalizer"
+			"en"	"Equalizer"
+
+			"view_model"  "models/cwr_byryzhiy_plugin/deagle/deagle_cwr_byryzhiy.mdl"
+			"world_model" "models/cwr_byryzhiy_plugin/deagle/w_deagle_cwr_byryzhiy.mdl"
+			"planted_world_model"	""
+			"skin"        "10"
+			"max_skin"    "14"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"gdoppleremerald"
+		{
+			"flags"		""
+			
+			"ru"	"Gamma Doppler Emerald"
+			"en"	"Gamma Doppler Emerald"
+
+			"view_model"  "models/cwr_byryzhiy_plugin/deagle/deagle_cwr_byryzhiy.mdl"
+			"world_model" "models/cwr_byryzhiy_plugin/deagle/w_deagle_cwr_byryzhiy.mdl"
+			"planted_world_model"	""
+			"skin"        "15"
+			"max_skin"    "19"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+	}
+
+	"glock"		// Оружие (секция) без тэга "weapon_", "_projectile" и "planted_"
+	{
+		"flags"		""			// Флаги доступа
+		// Отображение названия на разных языках, если не найдено отображение, будет использован название секции
+		"ru"       "Glock"
+		"en"       "Glock"
+		// Категории, в каком меню будет отображаться данное оружие
+		// 0	-	Автоматы
+		// 1	-	Пистолеты-пулеметы
+		// 2	-	Дробовики
+		// 3	-	Пистолеты
+		// 4	-	Ближний бой
+		// 5	-	Взрывные
+		"category" "3"
+
+		"deadlkingdom" // Под-выбор модели для оружия
+		{
+			"flags"		""			// Флаги доступа. Можно указывать несколько флагов или оставьте пустым, чтобы сделать доступным для всех
+			
+			// Отображение названия на разных языках, если не найдено отображение, будет использован название секции
+			"ru"	"Deadl Kingdom"
+			"en"	"Deadl Kingdom"
+
+			"view_model"  "models/drweapon2025/glock/glock_atm_1.mdl"
+			"world_model" "models/drweapon2025/glock/w_glock_atm_weapon.mdl"
+			"planted_world_model"	""		// Путь до модели установленной бомбы (Только для C4 бомбы)
+			"skin"        "1"          // първото skinfamily
+			"max_skin"    "7"          // максимален брой скинове (0-4 = 5 скина)
+			"flip_view_model"   "1"
+
+			"Sequences"		// Перенаправление индексов анимации
+			{
+			}
+		}
+
+		"elpatrongold"
+		{
+			"flags"		""
+			
+			"ru"	"El Patron Gold"
+			"en"	"El Patron Gold"
+
+			"view_model"  "models/drweapon2025/glock/glock_atm_1.mdl"
+			"world_model" "models/drweapon2025/glock/w_glock_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "8"
+			"max_skin"    "15"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"neonfade"
+		{
+			"flags"		""
+			
+			"ru"	"Neon Fade"
+			"en"	"Neon Fade"
+
+			"view_model"  "models/drweapon2025/glock/glock_atm_1.mdl"
+			"world_model" "models/drweapon2025/glock/w_glock_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "16"
+			"max_skin"    "23"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"nightrainbow"
+		{
+			"flags"		""
+			
+			"ru"	"Night Rainbow"
+			"en"	"Night Rainbow"
+
+			"view_model"  "models/drweapon2025/glock/glock_atm_1.mdl"
+			"world_model" "models/drweapon2025/glock/w_glock_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "24"
+			"max_skin"    "31"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+	}
+
+	"knife"		// Оружие (секция) без тэга "weapon_", "_projectile" и "planted_"
+	{
+		"flags"		""			// Флаги доступа
+		// Отображение названия на разных языках, если не найдено отображение, будет использован название секции
+		"ru"       "Knife"
+		"en"       "Knife"
+		// Категории, в каком меню будет отображаться данное оружие
+		// 0	-	Автоматы
+		// 1	-	Пистолеты-пулеметы
+		// 2	-	Дробовики
+		// 3	-	Пистолеты
+		// 4	-	Ближний бой
+		// 5	-	Взрывные
+		"category" "4"
+
+		"katanathermal" // Под-выбор модели для оружия
+		{
+			"flags"		""			// Флаги доступа. Можно указывать несколько флагов или оставьте пустым, чтобы сделать доступным для всех
+			
+			// Отображение названия на разных языках, если не найдено отображение, будет использован название секции
+			"ru"	"Katana Thermal"
+			"en"	"Katana Thermal"
+
+			"view_model"  "models/drweapon2025/katana_thermal/katana_thermal_atm_1.mdl"
+			"world_model" "models/drweapon2025/katana_thermal/w_katana_thermal_atm_weapon.mdl"
+			"planted_world_model"	""		// Путь до модели установленной бомбы (Только для C4 бомбы)
+			"skin"        "1"          // първото skinfamily
+			"max_skin"    "7"          // максимален брой скинове (0-4 = 5 скина)
+
+			"Sequences"		// Перенаправление индексов анимации
+			{
+			}
+		}
+
+		"bayonetfade"
+		{
+			"flags"		""
+			
+			"ru"	"Bayonet Fade"
+			"en"	"Bayonet Fade"
+
+			"view_model"  "models/drweapon2025/knifes/knife_bayonet/bayonet_atm_1.mdl"
+			"world_model" "models/drweapon2025/knifes/knife_bayonet/w_bayonet_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "1"
+			"max_skin"    "7"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"bayonetlblack"
+		{
+			"flags"		""
+			
+			"ru"	"Bayonet Lazarat Black"
+			"en"	"Bayonet Lazarat Black"
+
+			"view_model"  "models/drweapon2025/knifes/knife_bayonet/bayonet_atm_1.mdl"
+			"world_model" "models/drweapon2025/knifes/knife_bayonet/w_bayonet_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "8"
+			"max_skin"    "15"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"bayonetlphase4"
+		{
+			"flags"		""
+			
+			"ru"	"Bayonet Lazarat Phase4"
+			"en"	"Bayonet Lazarat Phase4"
+
+			"view_model"  "models/drweapon2025/knifes/knife_bayonet/bayonet_atm_1.mdl"
+			"world_model" "models/drweapon2025/knifes/knife_bayonet/w_bayonet_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "16"
+			"max_skin"    "23"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"butterflycasehard"
+		{
+			"flags"		""
+			
+			"ru"	"Butterfly Case Hardened"
+			"en"	"Butterfly Case Hardened"
+
+			"view_model"  "models/drweapon2025/knifes/knife_butterfly/butterfly_atm_1.mdl"
+			"world_model" "models/drweapon2025/knifes/knife_butterfly/w_butterfly_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "1"
+			"max_skin"    "7"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"butterflydopplerblack"
+		{
+			"flags"		""
+			
+			"ru"	"Butterfly Doppler Black"
+			"en"	"Butterfly Doppler Black"
+
+			"view_model"  "models/drweapon2025/knifes/knife_butterfly/butterfly_atm_1.mdl"
+			"world_model" "models/drweapon2025/knifes/knife_butterfly/w_butterfly_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "8"
+			"max_skin"    "15"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"butterflyfreehand"
+		{
+			"flags"		""
+			
+			"ru"	"Butterfly Free Hand"
+			"en"	"Butterfly Free Hand"
+
+			"view_model"  "models/drweapon2025/knifes/knife_butterfly/butterfly_atm_1.mdl"
+			"world_model" "models/drweapon2025/knifes/knife_butterfly/w_butterfly_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "16"
+			"max_skin"    "23"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"flipemerald"
+		{
+			"flags"		""
+			
+			"ru"	"Flip Emerald Jmgndr"
+			"en"	"Flip Emerald Jmgndr"
+
+			"view_model"  "models/drweapon2025/knifes/knife_flip/flip_atm_1.mdl"
+			"world_model" "models/drweapon2025/knifes/knife_flip/w_flip_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "1"
+			"max_skin"    "7"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"flipfade"
+		{
+			"flags"		""
+			
+			"ru"	"Flip Fade"
+			"en"	"Flip Fade"
+
+			"view_model"  "models/drweapon2025/knifes/knife_flip/flip_atm_1.mdl"
+			"world_model" "models/drweapon2025/knifes/knife_flip/w_flip_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "8"
+			"max_skin"    "15"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"flipgammadoppler"
+		{
+			"flags"		""
+			
+			"ru"	"Flip Gamma Doppler 4"
+			"en"	"Flip Gamma Doppler 4"
+
+			"view_model"  "models/drweapon2025/knifes/knife_flip/flip_atm_1.mdl"
+			"world_model" "models/drweapon2025/knifes/knife_flip/w_flip_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "16"
+			"max_skin"    "23"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"karambitcasehard"
+		{
+			"flags"		""
+			
+			"ru"	"Karambit Case Hardened"
+			"en"	"Karambit Case Hardened"
+
+			"view_model"  "models/drweapon2025/knifes/knife_karambit/karambit_atm_1.mdl"
+			"world_model" "models/drweapon2025/knifes/knife_karambit/w_karambit_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "1"
+			"max_skin"    "7"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"karambitdoppler"
+		{
+			"flags"		""
+			
+			"ru"	"Karambit Doppler Black"
+			"en"	"Karambit Doppler Black"
+
+			"view_model"  "models/drweapon2025/knifes/knife_karambit/karambit_atm_1.mdl"
+			"world_model" "models/drweapon2025/knifes/knife_karambit/w_karambit_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "8"
+			"max_skin"    "15"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"karambitfreehand"
+		{
+			"flags"		""
+			
+			"ru"	"Karambit Free Hand"
+			"en"	"Karambit Free Hand"
+
+			"view_model"  "models/drweapon2025/knifes/knife_karambit/karambit_atm_1.mdl"
+			"world_model" "models/drweapon2025/knifes/knife_karambit/w_karambit_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "16"
+			"max_skin"    "23"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"shadowdaggercasehard"
+		{
+			"flags"		""
+			
+			"ru"	"Shadow Dagger Case Hard"
+			"en"	"Shadow Dagger Case Hard"
+
+			"view_model"  "models/drweapon2025/knifes/knife_shadow-daggers/shadow-dagger_atm_1.mdl"
+			"world_model" "models/drweapon2025/knifes/knife_shadow-daggers/w_shadow-dagger_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "1"
+			"max_skin"    "7"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"shadowdaggerslaughter"
+		{
+			"flags"		""
+			
+			"ru"	"Shadow Dagger Slaughter"
+			"en"	"Shadow Dagger Slaughter"
+
+			"view_model"  "models/drweapon2025/knifes/knife_shadow-daggers/shadow-dagger_atm_1.mdl"
+			"world_model" "models/drweapon2025/knifes/knife_shadow-daggers/w_shadow-dagger_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "8"
+			"max_skin"    "15"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"shadowdaggeruviolet"
+		{
+			"flags"		""
+			
+			"ru"	"Shadow Dagger Violet"
+			"en"	"Shadow Dagger Violet"
+
+			"view_model"  "models/drweapon2025/knifes/knife_shadow-daggers/shadow-dagger_atm_1.mdl"
+			"world_model" "models/drweapon2025/knifes/knife_shadow-daggers/w_shadow-dagger_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "16"
+			"max_skin"    "23"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"skeletondoppler"
+		{
+			"flags"		""
+			
+			"ru"	"Skeleton Doppler Black"
+			"en"	"Skeleton Doppler Black"
+
+			"view_model"  "models/drweapon2025/knifes/knife_skeleton/skeleton_atm_1.mdl"
+			"world_model" "models/drweapon2025/knifes/knife_skeleton/w_skeleton_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "1"
+			"max_skin"    "7"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"skeletondopplerp1"
+		{
+			"flags"		""
+			
+			"ru"	"Skeleton Doppler Phase 1"
+			"en"	"Skeleton Doppler Phase 1"
+
+			"view_model"  "models/drweapon2025/knifes/knife_skeleton/skeleton_atm_1.mdl"
+			"world_model" "models/drweapon2025/knifes/knife_skeleton/w_skeleton_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "8"
+			"max_skin"    "15"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"skeletongammadoppler2"
+		{
+			"flags"		""
+			
+			"ru"	"Skeleton Gamma Doppler Phase 2"
+			"en"	"Skeleton Gamma Doppler Phase 2"
+
+			"view_model"  "models/drweapon2025/knifes/knife_skeleton/skeleton_atm_1.mdl"
+			"world_model" "models/drweapon2025/knifes/knife_skeleton/w_skeleton_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "16"
+			"max_skin"    "23"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"survivalgdemerald"
+		{
+			"flags"		""
+			
+			"ru"	"Survival Gamma Doppler Emerald"
+			"en"	"Survival Gamma Doppler Emerald"
+
+			"view_model"  "models/drweapon2025/knifes/knife_survival/survival_atm_1.mdl"
+			"world_model" "models/drweapon2025/knifes/knife_survival/w_survival_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "1"
+			"max_skin"    "7"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"survivalttooth"
+		{
+			"flags"		""
+			
+			"ru"	"Survival Tiger Tooth"
+			"en"	"Survival Tiger Tooth"
+
+			"view_model"  "models/drweapon2025/knifes/knife_survival/survival_atm_1.mdl"
+			"world_model" "models/drweapon2025/knifes/knife_survival/w_survival_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "8"
+			"max_skin"    "15"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"survivaluviolet"
+		{
+			"flags"		""
+			
+			"ru"	"Survival Violet"
+			"en"	"Survival Violet"
+
+			"view_model"  "models/drweapon2025/knifes/knife_survival/survival_atm_1.mdl"
+			"world_model" "models/drweapon2025/knifes/knife_survival/w_survival_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "16"
+			"max_skin"    "23"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"talonchgoldgem"
+		{
+			"flags"		""
+			
+			"ru"	"Talon CH Gold Gem"
+			"en"	"Talon CH Gold Gem"
+
+			"view_model"  "models/drweapon2025/knifes/knife_talon/talon_atm_1.mdl"
+			"world_model" "models/drweapon2025/knifes/knife_talon/w_talon_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "1"
+			"max_skin"    "7"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"talondopplerblack"
+		{
+			"flags"		""
+			
+			"ru"	"Talon Doppler Black"
+			"en"	"Talon Doppler Black"
+
+			"view_model"  "models/drweapon2025/knifes/knife_talon/talon_atm_1.mdl"
+			"world_model" "models/drweapon2025/knifes/knife_talon/w_talon_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "8"
+			"max_skin"    "15"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"talonsapphire"
+		{
+			"flags"		""
+			
+			"ru"	"Talon Sapphire"
+			"en"	"Talon Sapphire"
+
+			"view_model"  "models/drweapon2025/knifes/knife_talon/talon_atm_1.mdl"
+			"world_model" "models/drweapon2025/knifes/knife_talon/w_talon_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "16"
+			"max_skin"    "23"
+
+			"Sequences"
+			{
+			}
+		}
+
+	}
+
+	"m4a1"		// Оружие (секция) без тэга "weapon_", "_projectile" и "planted_"
+	{
+		"flags"		""			// Флаги доступа
+		// Отображение названия на разных языках, если не найдено отображение, будет использован название секции
+		"ru"       "M4A1-S | M4A4"
+		"en"       "M4A1-S | M4A4"
+		// Категории, в каком меню будет отображаться данное оружие
+		// 0	-	Автоматы
+		// 1	-	Пистолеты-пулеметы
+		// 2	-	Дробовики
+		// 3	-	Пистолеты
+		// 4	-	Ближний бой
+		// 5	-	Взрывные
+		"category" "0"
+
+		"radium" // Под-выбор модели для оружия
+		{
+			"flags"		""			// Флаги доступа. Можно указывать несколько флагов или оставьте пустым, чтобы сделать доступным для всех
+			
+			// Отображение названия на разных языках, если не найдено отображение, будет использован название секции
+			"ru"	"M4A1 Radium"
+			"en"	"M4A1 Radium"
+
+			"view_model"  "models/drweapon2025/m4a1-s/m4a1_s_atm_1.mdl"
+			"world_model" "models/drweapon2025/m4a1-s/w_m4a1_s_atm_weapon.mdl"
+			"planted_world_model"	""		// Путь до модели установленной бомбы (Только для C4 бомбы)
+			"skin"        "1"          // първото skinfamily
+			"max_skin"    "7"          // максимален брой скинове (0-4 = 5 скина)
+			"flip_view_model"   "1"
+
+			"Sequences"		// Перенаправление индексов анимации
+			{
+			}
+		}
+
+		"abrokenheart"
+		{
+			"flags"		""
+			
+			"ru"	"M4A1 Broken Heart"
+			"en"	"M4A1 Broken Heart"
+
+			"view_model"  "models/drweapon2025/m4a1-s/m4a1_s_atm_1.mdl"
+			"world_model" "models/drweapon2025/m4a1-s/w_m4a1_s_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "8"
+			"max_skin"    "15"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"cyberuprising"
+		{
+			"flags"		""
+			
+			"ru"	"M4A1 Cyber Uprising"
+			"en"	"M4A1 Cyber Uprising"
+
+			"view_model"  "models/drweapon2025/m4a1-s/m4a1_s_atm_1.mdl"
+			"world_model" "models/drweapon2025/m4a1-s/w_m4a1_s_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "16"
+			"max_skin"    "23"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"elpatrongold"
+		{
+			"flags"		""
+			
+			"ru"	"M4A1 El Patron Gold"
+			"en"	"M4A1 El Patron Gold"
+
+			"view_model"  "models/drweapon2025/m4a1-s/m4a1_s_atm_1.mdl"
+			"world_model" "models/drweapon2025/m4a1-s/w_m4a1_s_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "24"
+			"max_skin"    "31"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"hades"
+		{
+			"flags"		""
+			
+			"ru"	"M4A1 Hades"
+			"en"	"M4A1 Hades"
+
+			"view_model"  "models/drweapon2025/m4a1-s/m4a1_s_atm_1.mdl"
+			"world_model" "models/drweapon2025/m4a1-s/w_m4a1_s_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "32"
+			"max_skin"    "39"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"shrapnel"
+		{
+			"flags"		""
+			
+			"ru"	"M4A1 Shrapnel"
+			"en"	"M4A1 Shrapnel"
+
+			"view_model"  "models/drweapon2025/m4a1-s/m4a1_s_atm_1.mdl"
+			"world_model" "models/drweapon2025/m4a1-s/w_m4a1_s_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "40"
+			"max_skin"    "47"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"sulfurfire"
+		{
+			"flags"		""
+			
+			"ru"	"M4A1 Sulfur Fire"
+			"en"	"M4A1 Sulfur Fire"
+
+			"view_model"  "models/drweapon2025/m4a1-s/m4a1_s_atm_1.mdl"
+			"world_model" "models/drweapon2025/m4a1-s/w_m4a1_s_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "48"
+			"max_skin"    "55"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"unicornrush"
+		{
+			"flags"		""
+			
+			"ru"	"M4A1 Unicorn Rush"
+			"en"	"M4A1 Unicorn Rush"
+
+			"view_model"  "models/drweapon2025/m4a1-s/m4a1_s_atm_1.mdl"
+			"world_model" "models/drweapon2025/m4a1-s/w_m4a1_s_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "56"
+			"max_skin"    "63"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"monocolred"
+		{
+			"flags"		""
+			
+			"ru"	"M4A1 Mono Colred"
+			"en"	"M4A1 Mono Colred"
+
+			"view_model"  "models/drweapon2025/m4a1-s/m4a1_s_atm_1.mdl"
+			"world_model" "models/drweapon2025/m4a1-s/w_m4a1_s_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "64"
+			"max_skin"    "79"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"notdead"
+		{
+			"flags"		""
+			
+			"ru"	"M4A1 Not Dead"
+			"en"	"M4A1 Not Dead"
+
+			"view_model"  "models/drweapon2025/m4a1-s/m4a1_s_atm_1.mdl"
+			"world_model" "models/drweapon2025/m4a1-s/w_m4a1_s_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "80"
+			"max_skin"    "87"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"printstream"
+		{
+			"flags"		""
+			
+			"ru"	"M4A1 Printstream"
+			"en"	"M4A1 Printstream"
+
+			"view_model"  "models/drweapon2025/m4a1-s/m4a1_s_atm_1.mdl"
+			"world_model" "models/drweapon2025/m4a1-s/w_m4a1_s_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "88"
+			"max_skin"    "95"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"marchofdadead"
+		{
+			"flags"		""
+			
+			"ru"	"M4A4 March of dead"
+			"en"	"M4A4 March of dead"
+
+			"view_model"  "models/drweapon2025/m4a4-s/m4a4_atm_1.mdl"
+			"world_model" "models/drweapon2025/m4a4-s/w_m4a4_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "1"
+			"max_skin"    "7"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"servarevitas"
+		{
+			"flags"		""
+			
+			"ru"	"M4A4 Servare Vitas"
+			"en"	"M4A4 Servare Vitas"
+
+			"view_model"  "models/drweapon2025/m4a4-s/m4a4_atm_1.mdl"
+			"world_model" "models/drweapon2025/m4a4-s/w_m4a4_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "8"
+			"max_skin"    "15"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"wildstyle"
+		{
+			"flags"		""
+			
+			"ru"	"M4A4 Wild Style"
+			"en"	"M4A4 Wild Style"
+
+			"view_model"  "models/drweapon2025/m4a4-s/m4a4_atm_1.mdl"
+			"world_model" "models/drweapon2025/m4a4-s/w_m4a4_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "16"
+			"max_skin"    "23"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"basilisk"
+		{
+			"flags"		""
+			
+			"ru"	"Basilisk"
+			"en"	"Basilisk"
+
+			"view_model"  "models/cwr_byryzhiy_plugin/m4a1-s/m4a1_s_cwr_byryzhiy.mdl"
+			"world_model" "models/cwr_byryzhiy_plugin/m4a1-s/w_m4a1_s_cwr_byryzhiy.mdl"
+			"planted_world_model"	""
+			"skin"        "5"
+			"max_skin"    "9"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"akiirov"
+		{
+			"flags"		""
+			
+			"ru"	"Akiirov"
+			"en"	"Akiirov"
+
+			"view_model"  "models/cwr_byryzhiy_plugin/m4a1-s/m4a1_s_cwr_byryzhiy.mdl"
+			"world_model" "models/cwr_byryzhiy_plugin/m4a1-s/w_m4a1_s_cwr_byryzhiy.mdl"
+			"planted_world_model"	""
+			"skin"        "1"
+			"max_skin"    "4"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		// za tezi ne sme sigurni te sa ot byryzhiy - da se testvat
+		"bluephosphor"
+		{
+			"flags"		""
+			
+			"ru"	"Blue Phosphor"
+			"en"	"Blue Phosphor"
+
+			"view_model"  "models/cwr_byryzhiy_plugin/m4a1-s/m4a1_s_cwr_byryzhiy.mdl"
+			"world_model" "models/cwr_byryzhiy_plugin/m4a1-s/w_m4a1_s_cwr_byryzhiy.mdl"
+			"planted_world_model"	""
+			"skin"        "10"
+			"max_skin"    "14"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"decimatorlgreen"
+		{
+			"flags"		""
+			
+			"ru"	"Decimator Green"
+			"en"	"Decimator Green"
+
+			"view_model"  "models/cwr_byryzhiy_plugin/m4a1-s/m4a1_s_cwr_byryzhiy.mdl"
+			"world_model" "models/cwr_byryzhiy_plugin/m4a1-s/w_m4a1_s_cwr_byryzhiy.mdl"
+			"planted_world_model"	""
+			"skin"        "15"
+			"max_skin"    "19"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"headshot"
+		{
+			"flags"		""
+			
+			"ru"	"Headshot"
+			"en"	"Headshot"
+
+			"view_model"  "models/cwr_byryzhiy_plugin/m4a1-s/m4a1_s_cwr_byryzhiy.mdl"
+			"world_model" "models/cwr_byryzhiy_plugin/m4a1-s/w_m4a1_s_cwr_byryzhiy.mdl"
+			"planted_world_model"	""
+			"skin"        "20"
+			"max_skin"    "24"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+		// za tezi ne sme sigurni te sa ot byryzhiy - da se testvat
+
+	}
+
+	"m249"		// Оружие (секция) без тэга "weapon_", "_projectile" и "planted_"
+	{
+		"flags"		""			// Флаги доступа
+		// Отображение названия на разных языках, если не найдено отображение, будет использован название секции
+		"ru"       "M249"
+		"en"       "M249"
+		// Категории, в каком меню будет отображаться данное оружие
+		// 0	-	Автоматы
+		// 1	-	Пистолеты-пулеметы
+		// 2	-	Дробовики
+		// 3	-	Пистолеты
+		// 4	-	Ближний бой
+		// 5	-	Взрывные
+		"category" "0"
+
+		"blacksand" // Под-выбор модели для оружия
+		{
+			"flags"		""			// Флаги доступа. Можно указывать несколько флагов или оставьте пустым, чтобы сделать доступным для всех
+			
+			// Отображение названия на разных языках, если не найдено отображение, будет использован название секции
+			"ru"	"Black Sand"
+			"en"	"Black Sand"
+
+			"view_model"  "models/drweapon2025/m249/m249_atm_1.mdl"
+			"world_model" "models/drweapon2025/m249/w_m249_atm_weapon.mdl"
+			"planted_world_model"	""		// Путь до модели установленной бомбы (Только для C4 бомбы)
+			"skin"        "1"          // първото skinfamily
+			"max_skin"    "7"          // максимален брой скинове (0-4 = 5 скина)
+			"flip_view_model"   "1"
+
+			"Sequences"		// Перенаправление индексов анимации
+			{
+			}
+		}
+
+		"systemlock"
+		{
+			"flags"		""
+			
+			"ru"	"System Lock"
+			"en"	"System Lock"
+
+			"view_model"  "models/drweapon2025/m249/m249_atm_1.mdl"
+			"world_model" "models/drweapon2025/m249/w_m249_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "8"
+			"max_skin"    "15"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+	}
+
+	"p90"		// Оружие (секция) без тэга "weapon_", "_projectile" и "planted_"
+	{
+		"flags"		""			// Флаги доступа
+		// Отображение названия на разных языках, если не найдено отображение, будет использован название секции
+		"ru"       "P90"
+		"en"       "P90"
+		// Категории, в каком меню будет отображаться данное оружие
+		// 0	-	Автоматы
+		// 1	-	Пистолеты-пулеметы
+		// 2	-	Дробовики
+		// 3	-	Пистолеты
+		// 4	-	Ближний бой
+		// 5	-	Взрывные
+		"category" "1" // ne sum siguren
+
+		"gunzinal" // Под-выбор модели для оружия
+		{
+			"flags"		""			// Флаги доступа. Можно указывать несколько флагов или оставьте пустым, чтобы сделать доступным для всех
+			
+			// Отображение названия на разных языках, если не найдено отображение, будет использован название секции
+			"ru"	"Gunzinal"
+			"en"	"Gunzinal"
+
+			"view_model"  "models/drweapon2025/p90/p90_atm_1.mdl"
+			"world_model" "models/drweapon2025/p90/w_p90_atm_weapon.mdl"
+			"planted_world_model"	""		// Путь до модели установленной бомбы (Только для C4 бомбы)
+			"skin"        "1"          // първото skinfamily
+			"max_skin"    "7"          // максимален брой скинове (0-4 = 5 скина)
+			"flip_view_model"   "1"
+
+			"Sequences"		// Перенаправление индексов анимации
+			{
+			}
+		}
+
+		"prototype"
+		{
+			"flags"		""
+			
+			"ru"	"Prototype"
+			"en"	"Prototype"
+
+			"view_model"  "models/drweapon2025/p90/p90_atm_1.mdl"
+			"world_model" "models/drweapon2025/p90/w_p90_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "8"
+			"max_skin"    "15"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"specialist"
+		{
+			"flags"		""
+			
+			"ru"	"Specialist"
+			"en"	"Specialist"
+
+			"view_model"  "models/drweapon2025/p90/p90_atm_1.mdl"
+			"world_model" "models/drweapon2025/p90/w_p90_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "16"
+			"max_skin"    "23"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"stereodarkv2"
+		{
+			"flags"		""
+			
+			"ru"	"Stereo Dark V2"
+			"en"	"Stereo Dark V2"
+
+			"view_model"  "models/drweapon2025/p90/p90_atm_1.mdl"
+			"world_model" "models/drweapon2025/p90/w_p90_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "24"
+			"max_skin"    "31"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"ataraxia"
+		{
+			"flags"		""
+			
+			"ru"	"Ataraxia"
+			"en"	"Ataraxia"
+
+			"view_model"  "models/drweapon2025/p90/p90_atm_1.mdl"
+			"world_model" "models/drweapon2025/p90/w_p90_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "32"
+			"max_skin"    "39"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"blackhole"
+		{
+			"flags"		""
+			
+			"ru"	"Black Hole"
+			"en"	"Black Hole"
+
+			"view_model"  "models/drweapon2025/p90/p90_atm_1.mdl"
+			"world_model" "models/drweapon2025/p90/w_p90_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "40"
+			"max_skin"    "47"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"clgreen"
+		{
+			"flags"		""
+			
+			"ru"	"Cl Green"
+			"en"	"Cl Green"
+
+			"view_model"  "models/drweapon2025/p90/p90_atm_1.mdl"
+			"world_model" "models/drweapon2025/p90/w_p90_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "48"
+			"max_skin"    "55"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"forensics"
+		{
+			"flags"		""
+			
+			"ru"	"Forensics"
+			"en"	"Forensics"
+
+			"view_model"  "models/drweapon2025/p90/p90_atm_1.mdl"
+			"world_model" "models/drweapon2025/p90/w_p90_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "48"
+			"max_skin"    "55"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+	}
+
+	"p228"		// Оружие (секция) без тэга "weapon_", "_projectile" и "planted_"
+	{
+		"flags"		""			// Флаги доступа
+		// Отображение названия на разных языках, если не найдено отображение, будет использован название секции
+		"ru"       "P228"
+		"en"       "P228"
+		// Категории, в каком меню будет отображаться данное оружие
+		// 0	-	Автоматы
+		// 1	-	Пистолеты-пулеметы
+		// 2	-	Дробовики
+		// 3	-	Пистолеты
+		// 4	-	Ближний бой
+		// 5	-	Взрывные
+		"category" "3"
+
+		"constructblue" // Под-выбор модели для оружия
+		{
+			"flags"		""			// Флаги доступа. Можно указывать несколько флагов или оставьте пустым, чтобы сделать доступным для всех
+			
+			// Отображение названия на разных языках, если не найдено отображение, будет использован название секции
+			"ru"	"Construct Blue"
+			"en"	"Construct Blue"
+
+			"view_model"  "models/drweapon2025/p250/p250_atm_1.mdl"
+			"world_model" "models/drweapon2025/p250/w_p250_atm_weapon.mdl"
+			"planted_world_model"	""		// Путь до модели установленной бомбы (Только для C4 бомбы)
+			"skin"        "1"          // първото skinfamily
+			"max_skin"    "7"          // максимален брой скинове (0-4 = 5 скина)
+			"flip_view_model"   "1"
+
+			"Sequences"		// Перенаправление индексов анимации
+			{
+			}
+		}
+
+		"cyberpunk"
+		{
+			"flags"		""
+			
+			"ru"	"Cyberpunk"
+			"en"	"Cyberpunk"
+
+			"view_model"  "models/drweapon2025/p250/p250_atm_1.mdl"
+			"world_model" "models/drweapon2025/p250/w_p250_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "8"
+			"max_skin"    "15"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"playtimehot"
+		{
+			"flags"		""
+			
+			"ru"	"Playtime Hot"
+			"en"	"Playtime Hot"
+
+			"view_model"  "models/drweapon2025/p250/p250_atm_1.mdl"
+			"world_model" "models/drweapon2025/p250/w_p250_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "16"
+			"max_skin"    "23"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"sunsetsea"
+		{
+			"flags"		""
+			
+			"ru"	"Sunset Sea"
+			"en"	"Sunset Sea"
+
+			"view_model"  "models/drweapon2025/p250/p250_atm_1.mdl"
+			"world_model" "models/drweapon2025/p250/w_p250_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "24"
+			"max_skin"    "31"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+	}
+
+	"scout"		// Оружие (секция) без тэга "weapon_", "_projectile" и "planted_"
+	{
+		"flags"		""			// Флаги доступа
+		// Отображение названия на разных языках, если не найдено отображение, будет использован название секции
+		"ru"       "Scout"
+		"en"       "Scout"
+		// Категории, в каком меню будет отображаться данное оружие
+		// 0	-	Автоматы
+		// 1	-	Пистолеты-пулеметы
+		// 2	-	Дробовики
+		// 3	-	Пистолеты
+		// 4	-	Ближний бой
+		// 5	-	Взрывные
+		"category" "0"
+
+		"stoneage" // Под-выбор модели для оружия
+		{
+			"flags"		""			// Флаги доступа. Можно указывать несколько флагов или оставьте пустым, чтобы сделать доступным для всех
+			
+			// Отображение названия на разных языках, если не найдено отображение, будет использован название секции
+			"ru"	"Stone Age"
+			"en"	"Stone Age"
+
+			"view_model"  "models/drweapon2025/scout/scout_atm_1.mdl"
+			"world_model" "models/drweapon2025/scout/w_scout_atm_weapon.mdl"
+			"planted_world_model"	""		// Путь до модели установленной бомбы (Только для C4 бомбы)
+			"skin"        "1"          // първото skinfamily
+			"max_skin"    "7"          // максимален брой скинове (0-4 = 5 скина)
+			"flip_view_model"   "1"
+
+			"Sequences"		// Перенаправление индексов анимации
+			{
+			}
+		}
+
+		"bluespruce"
+		{
+			"flags"		""
+			
+			"ru"	"Blue Spruce"
+			"en"	"Blue Spruce"
+
+			"view_model"  "models/drweapon2025/scout/scout_atm_1.mdl"
+			"world_model" "models/drweapon2025/scout/w_scout_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "8"
+			"max_skin"    "15"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"chromaticaberration"
+		{
+			"flags"		""
+			
+			"ru"	"Chromatic Aberration"
+			"en"	"Blue Spruce"
+
+			"view_model"  "models/drweapon2025/scout/scout_atm_1.mdl"
+			"world_model" "models/drweapon2025/scout/w_scout_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "16"
+			"max_skin"    "23"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"ghostcrusader"
+		{
+			"flags"		""
+			
+			"ru"	"Ghost Crusader"
+			"en"	"Blue Spruce"
+
+			"view_model"  "models/drweapon2025/scout/scout_atm_1.mdl"
+			"world_model" "models/drweapon2025/scout/w_scout_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "24"
+			"max_skin"    "31"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"necropos"
+		{
+			"flags"		""
+			
+			"ru"	"Necropos"
+			"en"	"Blue Spruce"
+
+			"view_model"  "models/drweapon2025/scout/scout_atm_1.mdl"
+			"world_model" "models/drweapon2025/scout/w_scout_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "32"
+			"max_skin"    "39"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+	}
+
+	"sg552"		// Оружие (секция) без тэга "weapon_", "_projectile" и "planted_"
+	{
+		"flags"		""			// Флаги доступа
+		// Отображение названия на разных языках, если не найдено отображение, будет использован название секции
+		"ru"       "SG552"
+		"en"       "SG552"
+		// Категории, в каком меню будет отображаться данное оружие
+		// 0	-	Автоматы
+		// 1	-	Пистолеты-пулеметы
+		// 2	-	Дробовики
+		// 3	-	Пистолеты
+		// 4	-	Ближний бой
+		// 5	-	Взрывные
+		"category" "0"
+
+		"confrontation" // Под-выбор модели для оружия
+		{
+			"flags"		""			// Флаги доступа. Можно указывать несколько флагов или оставьте пустым, чтобы сделать доступным для всех
+			
+			// Отображение названия на разных языках, если не найдено отображение, будет использован название секции
+			"ru"	"Confrontation"
+			"en"	"Confrontation"
+
+			"view_model"  "models/drweapon2025/sig553/sg552_atm_1.mdl"
+			"world_model" "models/drweapon2025/sig553/w_sg552_atm_weapon.mdl"
+			"planted_world_model"	""		// Путь до модели установленной бомбы (Только для C4 бомбы)
+			"skin"        "1"          // първото skinfamily
+			"max_skin"    "7"          // максимален брой скинове (0-4 = 5 скина)
+			"flip_view_model"   "1"
+
+			"Sequences"		// Перенаправление индексов анимации
+			{
+			}
+		}
+
+		"elpatrongold"
+		{
+			"flags"		""
+			
+			"ru"	"El Patron Gold"
+			"en"	"El Patron Gold"
+
+			"view_model"  "models/drweapon2025/sig553/sg552_atm_1.mdl"
+			"world_model" "models/drweapon2025/sig553/w_sg552_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "8"
+			"max_skin"    "15"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"moonrise"
+		{
+			"flags"		""
+			
+			"ru"	"Moonrise"
+			"en"	"Moonrise"
+
+			"view_model"  "models/drweapon2025/sig553/sg552_atm_1.mdl"
+			"world_model" "models/drweapon2025/sig553/w_sg552_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "16"
+			"max_skin"    "23"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"vaccine"
+		{
+			"flags"		""
+			
+			"ru"	"Vaccine"
+			"en"	"Vaccine"
+
+			"view_model"  "models/drweapon2025/sig553/sg552_atm_1.mdl"
+			"world_model" "models/drweapon2025/sig553/w_sg552_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "24"
+			"max_skin"    "31"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+	}
+
+	"usp"		// Оружие (секция) без тэга "weapon_", "_projectile" и "planted_"
+	{
+		"flags"		""			// Флаги доступа
+		// Отображение названия на разных языках, если не найдено отображение, будет использован название секции
+		"ru"       "USP"
+		"en"       "USP"
+		// Категории, в каком меню будет отображаться данное оружие
+		// 0	-	Автоматы
+		// 1	-	Пистолеты-пулеметы
+		// 2	-	Дробовики
+		// 3	-	Пистолеты
+		// 4	-	Ближний бой
+		// 5	-	Взрывные
+		"category" "3"
+
+		"vofthelastdragon" // Под-выбор модели для оружия
+		{
+			"flags"		""			// Флаги доступа. Можно указывать несколько флагов или оставьте пустым, чтобы сделать доступным для всех
+			
+			// Отображение названия на разных языках, если не найдено отображение, будет использован название секции
+			"ru"	"Valley of the last Dragon"
+			"en"	"Valley of the last Dragon"
+
+			"view_model"  "models/drweapon2025/usp-s/usp_s_atm_1.mdl"
+			"world_model" "models/drweapon2025/usp-s/w_usp_atm_weapon.mdl"
+			"planted_world_model"	""		// Путь до модели установленной бомбы (Только для C4 бомбы)
+			"skin"        "1"          // първото skinfamily
+			"max_skin"    "7"          // максимален брой скинове (0-4 = 5 скина)
+			"flip_view_model"   "1"
+
+			"Sequences"		// Перенаправление индексов анимации
+			{
+			}
+		}
+
+		"aceglitch"
+		{
+			"flags"		""
+			
+			"ru"	"Ace Glitch"
+			"en"	"Ace Glitch"
+
+			"view_model"  "models/drweapon2025/usp-s/usp_s_atm_1.mdl"
+			"world_model" "models/drweapon2025/usp-s/w_usp_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "8"
+			"max_skin"    "15"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"agentbrown"
+		{
+			"flags"		""
+			
+			"ru"	"Agent Brown"
+			"en"	"Agent Brown"
+
+			"view_model"  "models/drweapon2025/usp-s/usp_s_atm_1.mdl"
+			"world_model" "models/drweapon2025/usp-s/w_usp_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "16"
+			"max_skin"    "23"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"agentdark"
+		{
+			"flags"		""
+			
+			"ru"	"Agent Dark"
+			"en"	"Agent Dark"
+
+			"view_model"  "models/drweapon2025/usp-s/usp_s_atm_1.mdl"
+			"world_model" "models/drweapon2025/usp-s/w_usp_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "24"
+			"max_skin"    "31"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+		"ashylarry"
+		{
+			"flags"		""
+			
+			"ru"	"Ashy Larry"
+			"en"	"Ashy Larry"
+
+			"view_model"  "models/drweapon2025/usp-s/usp_s_atm_1.mdl"
+			"world_model" "models/drweapon2025/usp-s/w_usp_atm_weapon.mdl"
+			"planted_world_model"	""
+			"skin"        "32"
+			"max_skin"    "39"
+			"flip_view_model"   "1"
+
+			"Sequences"
+			{
+			}
+		}
+
+	}
+
+	"c4"		// Оружие (секция) без тэга "weapon_", "_projectile" и "planted_"
+	{
+		"flags"		""			// Флаги доступа. Можно указывать несколько флагов или оставьте пустым, чтобы сделать доступным для всех
+		// Отображение названия на разных языках, если не найдено отображение, будет использован название секции
+		"ru"	"C4 Бомба"
+		"en"	"C4 Bomb"
+		
+		// Категории, в каком меню будет отображаться данное оружие
+		// 0	-	Автоматы
+		// 1	-	Пистолеты-пулеметы
+		// 2	-	Дробовики
+		// 3	-	Пистолеты
+		// 4	-	Ближний бой
+		// 5	-	Взрывные
+		// 6	-	Снайперские
+		"category"	"5"
+		
+		"cs2c4"		// Под-выбор модели для оружия
+		{
+			"flags"		""			// Флаги доступа. Можно указывать несколько флагов или оставьте пустым, чтобы сделать доступным для всех
+			
+			// Отображение названия на разных языках, если не найдено отображение, будет использован название секции
+			"ru"	"CS2 C4"
+			"en"	"CS2 C4"
+			
+			"view_model"		"models/drweapon2025/c4_cs2/c4_atm_1.mdl"							// Путь до модели от первого лица
+			"flip_view_model"	"1"  // Если вдруг модель леворукая (Не на той стороне) выставляем этот параметр на 1
+			"world_model"		"models/drweapon2025/c4_cs2/w_c4_atm_weapon.mdl"			// Путь до модели от третьего лица
+			"planted_world_model"		"models/drweapon2025/c4_cs2/w_c4_planted_atm_weapon.mdl"			// Путь до модели установленной бомбы
+			
+			"Sequences"		// Перенаправление индексов анимации
+			{
+			}
+		}
+	}
+
+	"hegrenade"		// Оружие (секция) без тэга "weapon_", "_projectile" и "planted_"
+	{
+		"flags"		""			// Флаги доступа. Можно указывать несколько флагов или оставьте пустым, чтобы сделать доступным для всех
+		// Отображение названия на разных языках, если не найдено отображение, будет использован название секции
+		"ru"	"Осколочная граната"
+		"en"	"Frag Grenade"
+		
+		// Категории, в каком меню будет отображаться данное оружие
+		// 0	-	Автоматы
+		// 1	-	Пистолеты-пулеметы
+		// 2	-	Дробовики
+		// 3	-	Пистолеты
+		// 4	-	Ближний бой
+		// 5	-	Взрывные
+		// 6	-	Снайперские
+		"category"	"5"
+		
+		"cs2hegranade"		// Под-выбор модели для оружия
+		{
+			"flags"		""			// Флаги доступа. Можно указывать несколько флагов или оставьте пустым, чтобы сделать доступным для всех
+			
+			// Отображение названия на разных языках, если не найдено отображение, будет использован название секции
+			"ru"	"CS2 Frag Grenade"
+			"en"	"CS2 Frag Grenade"
+			
+			"view_model"		"models/drweapon2025/he/v_fraggrenade_atm_1.mdl"							// Путь до модели от первого лица
+			"flip_view_model"	"1"  // Если вдруг модель леворукая (Не на той стороне) выставляем этот параметр на 1
+			"world_model"		"models/drweapon2025/he/w_fraggrenade_atm_weapon.mdl"			// Путь до модели от третьего лица
+			
+			"Sequences"		// Перенаправление индексов анимации
+			{
+			}
+		}
+	}
+
+	"smokegrenade"		// Оружие (секция) без тэга "weapon_", "_projectile" и "planted_"
+	{
+		"flags"		""			// Флаги доступа. Можно указывать несколько флагов или оставьте пустым, чтобы сделать доступным для всех
+		// Отображение названия на разных языках, если не найдено отображение, будет использован название секции
+		"ru"	"Дымовая граната"
+		"en"	"Smoke Grenade"
+		
+		// Категории, в каком меню будет отображаться данное оружие
+		// 0	-	Автоматы
+		// 1	-	Пистолеты-пулеметы
+		// 2	-	Дробовики
+		// 3	-	Пистолеты
+		// 4	-	Ближний бой
+		// 5	-	Взрывные
+		// 6	-	Снайперские
+		"category"	"5"
+		
+		"cs2smokegrenade"		// Под-выбор модели для оружия
+		{
+			"flags"		""			// Флаги доступа. Можно указывать несколько флагов или оставьте пустым, чтобы сделать доступным для всех
+			
+			// Отображение названия на разных языках, если не найдено отображение, будет использован название секции
+			"ru"	"CS2 Smoke Grenade"
+			"en"	"CS2 Smoke Grenade"
+			
+			"view_model"		"models/drweapon2025/smoke/v_smokegrenade_atm_1.mdl"							// Путь до модели от первого лица
+			"flip_view_model"	"1"  // Если вдруг модель леворукая (Не на той стороне) выставляем этот параметр на 1
+			"world_model"		"models/drweapon2025/smoke/w_smokegrenade_atm_weapon.mdl"			// Путь до модели от третьего лица
+			
+			"Sequences"		// Перенаправление индексов анимации
+			{
+			}
+		}
+	}
+
+	"flashbang"		// Оружие (секция) без тэга "weapon_", "_projectile" и "planted_"
+	{
+		"flags"		""			// Флаги доступа. Можно указывать несколько флагов или оставьте пустым, чтобы сделать доступным для всех
+		// Отображение названия на разных языках, если не найдено отображение, будет использован название секции
+		"ru"	"Flashbang"
+		"en"	"Flashbang"
+		
+		// Категории, в каком меню будет отображаться данное оружие
+		// 0	-	Автоматы
+		// 1	-	Пистолеты-пулеметы
+		// 2	-	Дробовики
+		// 3	-	Пистолеты
+		// 4	-	Ближний бой
+		// 5	-	Взрывные
+		// 6	-	Снайперские
+		"category"	"5"
+		
+		"cs2flashbang"		// Под-выбор модели для оружия
+		{
+			"flags"		""			// Флаги доступа. Можно указывать несколько флагов или оставьте пустым, чтобы сделать доступным для всех
+			
+			// Отображение названия на разных языках, если не найдено отображение, будет использован название секции
+			"ru"	"CS2 Flashbang"
+			"en"	"CS2 Flashbang"
+			
+			"view_model"		"models/drweapon2025/flashbang/flashbang_atm_1.mdl"							// Путь до модели от первого лица
+			"flip_view_model"	"1"  // Если вдруг модель леворукая (Не на той стороне) выставляем этот параметр на 1
+			"world_model"		"models/drweapon2025/flashbang/w_flashbang_atm_weapon.mdl"			// Путь до модели от третьего лица
+			
+			"Sequences"		// Перенаправление индексов анимации
+			{
+			}
+		}
+	}
+
+}
