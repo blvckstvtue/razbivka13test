@@ -323,12 +323,18 @@ void StartSprayAnimation(int client)
 	
 	g_isSprayAnimating[client] = true;
 	
-	// Use multiple timers to force the model change
-	CreateTimer(0.1, Timer_SetSprayModel, client, TIMER_FLAG_NO_MAPCHANGE);
+	// Try immediate model change
+	Timer_SetSprayModel(INVALID_HANDLE, client);
+	
+	// Use multiple timers to force the model change and keep it active
+	CreateTimer(0.1, Timer_SetSprayModel, client, TIMER_FLAG_NO_MAPCHANGE | TIMER_REPEAT);
 	CreateTimer(0.2, Timer_SetSprayModel, client, TIMER_FLAG_NO_MAPCHANGE);
 	CreateTimer(0.3, Timer_SetSprayModel, client, TIMER_FLAG_NO_MAPCHANGE);
+	CreateTimer(0.5, Timer_SetSprayModel, client, TIMER_FLAG_NO_MAPCHANGE);
+	CreateTimer(1.0, Timer_SetSprayModel, client, TIMER_FLAG_NO_MAPCHANGE);
+	CreateTimer(1.5, Timer_SetSprayModel, client, TIMER_FLAG_NO_MAPCHANGE);
 	
-	// Set timer to restore viewmodel (animation duration ~2 seconds)
+	// Set timer to restore viewmodel (animation duration ~2.5 seconds)
 	if(g_restoreTimer[client] != INVALID_HANDLE)
 	{
 		CloseHandle(g_restoreTimer[client]);
@@ -347,6 +353,21 @@ public Action Timer_SetSprayModel(Handle timer, int client)
 	if(viewModel == -1)
 		return Plugin_Stop;
 	
+	// Check if model is already set correctly
+	int currentModel = GetEntProp(viewModel, Prop_Send, "m_nModelIndex");
+	if(currentModel == g_sprayCanModelIndex)
+	{
+		// Model is correct, just ensure animation is playing
+		if(g_iSequenceOffset != -1)
+			SetEntData(viewModel, g_iSequenceOffset, 0, 4, true);
+		if(g_iCycleOffset != -1)
+			SetEntDataFloat(viewModel, g_iCycleOffset, 0.0, true);
+		if(g_iPlaybackRateOffset != -1)
+			SetEntDataFloat(viewModel, g_iPlaybackRateOffset, 1.0, true);
+			
+		return Plugin_Continue; // Continue for repeat timer
+	}
+	
 	// Try different methods to set the viewmodel
 	bool success = false;
 	
@@ -354,9 +375,9 @@ public Action Timer_SetSprayModel(Handle timer, int client)
 	if(g_iModelIndexOffset != -1)
 	{
 		if(g_showMsg)
-			PrintToChat(client, " \x04[DEBUG]\x01 Using manual offsets method");
+			PrintToChat(client, " \x04[DEBUG]\x01 Force setting spray model (was: %d, setting: %d)", currentModel, g_sprayCanModelIndex);
 		
-		// Set model index using offset
+		// Set model index using offset - FORCE IT
 		SetEntData(viewModel, g_iModelIndexOffset, g_sprayCanModelIndex, 4, true);
 		
 		// Set sequence using offset
@@ -373,6 +394,11 @@ public Action Timer_SetSprayModel(Handle timer, int client)
 		
 		// Also set model name
 		SetEntPropString(viewModel, Prop_Data, "m_ModelName", SPRAY_CAN_MODEL);
+		
+		// Force network update
+		ChangeEdictState(viewModel, g_iModelIndexOffset);
+		if(g_iSequenceOffset != -1)
+			ChangeEdictState(viewModel, g_iSequenceOffset);
 		
 		success = true;
 	}
@@ -392,10 +418,7 @@ public Action Timer_SetSprayModel(Handle timer, int client)
 		SetEntPropFloat(viewModel, Prop_Data, "m_flPlaybackRate", 1.0);
 	}
 	
-	if(g_showMsg)
-		PrintToChat(client, " \x04[DEBUG]\x01 Set spray model (index: %d)", g_sprayCanModelIndex);
-	
-	return Plugin_Stop;
+	return Plugin_Continue;
 }
 
 // Timer to restore viewmodel
