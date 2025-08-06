@@ -1,4 +1,4 @@
-/* Debug version of SM Franug CSGO Sprays to identify animation issues */
+/* Fixed Debug version of SM Franug CSGO Sprays to identify animation issues */
 
 #pragma semicolon 1
 #pragma newdecls required
@@ -64,13 +64,13 @@ MapSpray g_spraysMapAll[MAX_MAP_SPRAYS];
 int g_sprayMapCount = 0;
 int g_sprayIndexLast = 0;
 
-#define PLUGIN "1.5.2-DEBUG"
+#define PLUGIN "1.5.3-DEBUG-FIXED"
 
 public Plugin myinfo =
 {
-	name = "SM Franug CSGO Sprays DEBUG",
+	name = "SM Franug CSGO Sprays DEBUG FIXED",
 	author = "Franc1sco Steam: franug, Enhanced by Assistant",
-	description = "DEBUG version to troubleshoot spray animation",
+	description = "Fixed DEBUG version to troubleshoot spray animation",
 	version = PLUGIN,
 	url = "http://steamcommunity.com/id/franug"
 };
@@ -78,16 +78,17 @@ public Plugin myinfo =
 public void OnPluginStart()
 {
 	c_GameSprays = RegClientCookie("Sprays", "Sprays", CookieAccess_Private);
-	hCvar = CreateConVar("sm_franugsprays_version", PLUGIN, "SM Franug CSGO Sprays DEBUG", FCVAR_NOTIFY|FCVAR_DONTRECORD);
+	hCvar = CreateConVar("sm_franugsprays_version", PLUGIN, "SM Franug CSGO Sprays DEBUG FIXED", FCVAR_NOTIFY|FCVAR_DONTRECORD);
 	SetConVarString(hCvar, PLUGIN);
 
 	RegConsoleCmd("sm_spray", MakeSpray);
 	RegConsoleCmd("sm_sprays", GetSpray);
 	RegConsoleCmd("sm_spraydebug", DebugSpraySystem); // Debug command
+	RegConsoleCmd("sm_spraytest", TestModelChange); // Manual test command
 	HookEvent("round_start", roundStart);
 	HookEvent("player_death", Event_PlayerDeath);
 
-	h_time = CreateConVar("sm_csgosprays_time", "10", "Cooldown between sprays (reduced for testing)");
+	h_time = CreateConVar("sm_csgosprays_time", "5", "Cooldown between sprays (reduced for testing)");
 	h_distance = CreateConVar("sm_csgosprays_distance", "115", "How far the sprayer can reach");
 	h_use = CreateConVar("sm_csgosprays_use", "1", "Spray when a player runs +use (Default: E)");
 	h_maxMapSprays = CreateConVar("sm_csgosprays_mapmax", "25", "Maximum ammount of sprays on the map");
@@ -136,8 +137,6 @@ public Action DebugSpraySystem(int client, int args)
 	{
 		int currentModel = GetEntProp(viewModel, Prop_Send, "m_nModelIndex");
 		PrintToChat(client, "Current viewmodel: %d (entity: %d)", currentModel, viewModel);
-		
-		// Show model index only (GetPrecachedModelOfIndex doesn't exist)
 		PrintToChat(client, "Model index: %d", currentModel);
 	}
 	else
@@ -146,6 +145,75 @@ public Action DebugSpraySystem(int client, int args)
 	}
 	
 	return Plugin_Handled;
+}
+
+// Manual test command to force model change
+public Action TestModelChange(int client, int args)
+{
+	if(!client)
+		return Plugin_Handled;
+	
+	PrintToChat(client, "[TEST] === MANUAL MODEL CHANGE TEST ===");
+	
+	if(g_iGraffitiModelIndex <= 0)
+	{
+		PrintToChat(client, "[TEST] ERROR: Graffiti model not loaded! Index: %d", g_iGraffitiModelIndex);
+		return Plugin_Handled;
+	}
+	
+	int viewModel = GetEntPropEnt(client, Prop_Send, "m_hViewModel");
+	if(viewModel <= 0)
+	{
+		PrintToChat(client, "[TEST] ERROR: No viewmodel found!");
+		return Plugin_Handled;
+	}
+	
+	int oldModel = GetEntProp(viewModel, Prop_Send, "m_nModelIndex");
+	PrintToChat(client, "[TEST] Current model: %d", oldModel);
+	PrintToChat(client, "[TEST] Changing to graffiti model: %d", g_iGraffitiModelIndex);
+	
+	SetEntProp(viewModel, Prop_Send, "m_nModelIndex", g_iGraffitiModelIndex);
+	
+	// Verify change
+	int newModel = GetEntProp(viewModel, Prop_Send, "m_nModelIndex");
+	PrintToChat(client, "[TEST] Result model: %d", newModel);
+	
+	if(newModel == g_iGraffitiModelIndex)
+	{
+		PrintToChat(client, "[TEST] ✅ SUCCESS! Model changed!");
+		PrintToChat(client, "[TEST] Check your viewmodel now - should be graffiti balloon!");
+		
+		// Set timer to restore
+		CreateTimer(5.0, Timer_RestoreTestModel, GetClientUserId(client));
+		PrintToChat(client, "[TEST] Will restore in 5 seconds...");
+	}
+	else
+	{
+		PrintToChat(client, "[TEST] ❌ FAILED! Model didn't change!");
+		PrintToChat(client, "[TEST] This might be interference from custom_weapons.sp");
+	}
+	
+	return Plugin_Handled;
+}
+
+public Action Timer_RestoreTestModel(Handle timer, int userid)
+{
+	int client = GetClientOfUserId(userid);
+	if(!client || !IsClientInGame(client))
+		return Plugin_Stop;
+		
+	PrintToChat(client, "[TEST] Restoring original model...");
+	
+	// For test purposes, just switch back to a default weapon model
+	int viewModel = GetEntPropEnt(client, Prop_Send, "m_hViewModel");
+	if(viewModel > 0)
+	{
+		// Use a basic weapon model index (this might not work perfectly but it's for testing)
+		SetEntProp(viewModel, Prop_Send, "m_nModelIndex", 1); // Basic model
+		PrintToChat(client, "[TEST] Model restored (basic restore)");
+	}
+	
+	return Plugin_Stop;
 }
 
 public void OnPluginEnd()
@@ -268,6 +336,15 @@ public void OnMapStart()
 	g_iGraffitiModelIndex = PrecacheModel(GRAFFITI_MODEL);
 	PrintToServer("[SPRAY DEBUG] Model precached with index: %d", g_iGraffitiModelIndex);
 	
+	if(g_iGraffitiModelIndex > 0)
+	{
+		PrintToServer("[SPRAY DEBUG] ✅ Model precaching SUCCESS!");
+	}
+	else
+	{
+		PrintToServer("[SPRAY DEBUG] ❌ Model precaching FAILED - file might be missing!");
+	}
+	
 	AddFileToDownloadsTable(GRAFFITI_MODEL);
 	AddFileToDownloadsTable("materials/Models/12konsta/graffiti/v_ballon4ik.vmt");
 	AddFileToDownloadsTable("materials/Models/12konsta/graffiti/v_ballon4ik.vtf");
@@ -280,7 +357,7 @@ public void OnMapStart()
 	PrintToServer("[SPRAY DEBUG] Map start complete. Graffiti model index: %d", g_iGraffitiModelIndex);
 }
 
-// Debug function to store current viewmodel
+// Simple function to store current viewmodel
 void StoreCurrentViewModel(int client)
 {
 	int viewModel = GetEntPropEnt(client, Prop_Send, "m_hViewModel");
@@ -290,9 +367,6 @@ void StoreCurrentViewModel(int client)
 	{
 		g_iStoredViewModel[client] = GetEntProp(viewModel, Prop_Send, "m_nModelIndex");
 		PrintToChat(client, "[DEBUG] Stored current viewmodel index: %d", g_iStoredViewModel[client]);
-		
-		// Show current model index for debugging
-		PrintToChat(client, "[DEBUG] Current model index: %d", g_iStoredViewModel[client]);
 	}
 	else
 	{
@@ -300,7 +374,7 @@ void StoreCurrentViewModel(int client)
 	}
 }
 
-// Debug function to switch to graffiti balloon viewmodel
+// Simple function to switch to graffiti balloon viewmodel
 void SetGraffitiViewModel(int client)
 {
 	int viewModel = GetEntPropEnt(client, Prop_Send, "m_hViewModel");
@@ -308,7 +382,8 @@ void SetGraffitiViewModel(int client)
 	
 	if(viewModel > 0 && IsValidEntity(viewModel))
 	{
-		PrintToChat(client, "[DEBUG] Changing model from %d to %d", GetEntProp(viewModel, Prop_Send, "m_nModelIndex"), g_iGraffitiModelIndex);
+		int oldModel = GetEntProp(viewModel, Prop_Send, "m_nModelIndex");
+		PrintToChat(client, "[DEBUG] Changing model from %d to %d", oldModel, g_iGraffitiModelIndex);
 		SetEntProp(viewModel, Prop_Send, "m_nModelIndex", g_iGraffitiModelIndex);
 		
 		// Verify the change
@@ -322,6 +397,7 @@ void SetGraffitiViewModel(int client)
 		else
 		{
 			PrintToChat(client, "[DEBUG] ❌ Model change FAILED!");
+			PrintToChat(client, "[DEBUG] Possible interference from custom_weapons.sp");
 		}
 	}
 	else
@@ -330,7 +406,7 @@ void SetGraffitiViewModel(int client)
 	}
 }
 
-// Debug function to restore original viewmodel
+// Simple function to restore original viewmodel
 void RestoreOriginalViewModel(int client)
 {
 	if(!g_bIsPlayingSprayAnim[client] || g_iStoredViewModel[client] == -1)
@@ -344,7 +420,8 @@ void RestoreOriginalViewModel(int client)
 	
 	if(viewModel > 0 && IsValidEntity(viewModel))
 	{
-		PrintToChat(client, "[DEBUG] Restoring model from %d to %d", GetEntProp(viewModel, Prop_Send, "m_nModelIndex"), g_iStoredViewModel[client]);
+		int currentModel = GetEntProp(viewModel, Prop_Send, "m_nModelIndex");
+		PrintToChat(client, "[DEBUG] Restoring model from %d to %d", currentModel, g_iStoredViewModel[client]);
 		SetEntProp(viewModel, Prop_Send, "m_nModelIndex", g_iStoredViewModel[client]);
 		
 		// Verify the restoration
@@ -371,7 +448,6 @@ public Action Timer_RestoreViewModel(Handle timer, int client)
 	{
 		g_bIsPlayingSprayAnim[client] = false;
 		g_iStoredViewModel[client] = -1;
-		PrintToChat(client, "[DEBUG] Timer cleanup - client not valid");
 	}
 	
 	return Plugin_Stop;
@@ -393,6 +469,7 @@ Action PerformSprayWithAnimation(int client, float fClientEyeViewPoint[3])
 		if(g_iGraffitiModelIndex <= 0)
 		{
 			PrintToChat(client, "[DEBUG] ❌ FAILED: Invalid graffiti model index: %d", g_iGraffitiModelIndex);
+			PrintToChat(client, "[DEBUG] Model file probably missing or not precached!");
 		}
 		else
 		{
@@ -413,7 +490,11 @@ Action PerformSprayWithAnimation(int client, float fClientEyeViewPoint[3])
 	}
 	else
 	{
-		PrintToChat(client, "[DEBUG] Animation skipped - conditions not met");
+		PrintToChat(client, "[DEBUG] Animation skipped - checking conditions:");
+		PrintToChat(client, "[DEBUG] - Animation enabled: %s", g_enableAnimation ? "YES" : "NO");
+		PrintToChat(client, "[DEBUG] - Not currently animating: %s", !g_bIsPlayingSprayAnim[client] ? "YES" : "NO");
+		PrintToChat(client, "[DEBUG] - Client in game: %s", IsClientInGame(client) ? "YES" : "NO");
+		PrintToChat(client, "[DEBUG] - Client alive: %s", IsPlayerAlive(client) ? "YES" : "NO");
 	}
 	
 	// Create the spray decal
