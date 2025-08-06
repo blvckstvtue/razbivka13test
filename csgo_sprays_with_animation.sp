@@ -27,9 +27,11 @@
 #include <clientprefs>
 
 #tryinclude <custom_weapons>
+#tryinclude <cw_stocks>
 
 // Custom weapons compatibility
 bool g_bCustomWeaponsLoaded = false;
+bool g_bCWStocksLoaded = false;
 
 #define SOUND_SPRAY_REL "items/spraycan_spray.wav"
 #define SOUND_SPRAY "items/spraycan_spray.wav"
@@ -111,6 +113,9 @@ public void OnPluginStart()
 	#if defined _custom_weapons_included
 	g_bCustomWeaponsLoaded = LibraryExists("custom_weapons");
 	#endif
+	
+	// Check if cw_stocks is available
+	g_bCWStocksLoaded = true; // Assume it's available if included
 	
 	RegConsoleCmd("sm_spray", MakeSpray);
 	RegConsoleCmd("sm_sprays", GetSpray);
@@ -289,6 +294,12 @@ public void OnMapStart()
 	AddFileToDownloadsTable("materials/Models/12konsta/graffiti/v_ballon4ik.vmt");
 	AddFileToDownloadsTable("materials/Models/12konsta/graffiti/v_ballon4ik.vtf");
 	
+	// Initialize offsets for cw_stocks if available
+	if(g_bCWStocksLoaded)
+	{
+		RegisterOffsets();
+	}
+	
 	BuildPath(Path_SM, path_decals, sizeof(path_decals), "configs/csgo-sprays/sprays.cfg");
 	ReadDecals();
 	g_sprayMapCount = 0;
@@ -343,6 +354,9 @@ public Action Timer_SetSprayModel(Handle timer, int client)
 	if(viewModel == -1)
 		return Plugin_Stop;
 	
+	// Try different methods to set the viewmodel
+	bool success = false;
+	
 	#if defined _custom_weapons_included
 	// If custom weapons is loaded, check if player has custom weapon
 	if(g_bCustomWeaponsLoaded && CW_IsCurrentlyCustom(client))
@@ -352,22 +366,37 @@ public Action Timer_SetSprayModel(Handle timer, int client)
 		
 		// Use custom weapons function to set viewmodel
 		CW_SetViewModelIndex(viewModel, g_sprayCanModelIndex);
+		success = true;
 	}
-	else
+	#endif
+	
+	// Try using cw_stocks functions if available
+	if(g_bCWStocksLoaded && !success)
 	{
-	#endif
-		// Standard method
-		SetEntProp(viewModel, Prop_Send, "m_nModelIndex", g_sprayCanModelIndex);
-	#if defined _custom_weapons_included
+		if(g_showMsg)
+			PrintToChat(client, " \x04[DEBUG]\x01 Using CW_Stocks functions");
+		
+		CSViewModel_SetModelIndex(viewModel, g_sprayCanModelIndex);
+		CSViewModel_SetSequence(viewModel, 0); // "pshh" sequence
+		CSViewModel_SetCycle(viewModel, 0.0);
+		CSViewModel_SetPlaybackRate(viewModel, 1.0);
+		success = true;
 	}
-	#endif
 	
-	SetEntPropString(viewModel, Prop_Data, "m_ModelName", SPRAY_CAN_MODEL);
-	
-	// Play animation sequence (CS:Source OB compatible)
-	SetEntProp(viewModel, Prop_Send, "m_nSequence", 0); // "pshh" sequence
-	SetEntPropFloat(viewModel, Prop_Data, "m_flCycle", 0.0);
-	SetEntPropFloat(viewModel, Prop_Data, "m_flPlaybackRate", 1.0);
+	// Fallback to standard method
+	if(!success)
+	{
+		if(g_showMsg)
+			PrintToChat(client, " \x04[DEBUG]\x01 Using standard method");
+		
+		SetEntProp(viewModel, Prop_Send, "m_nModelIndex", g_sprayCanModelIndex);
+		SetEntPropString(viewModel, Prop_Data, "m_ModelName", SPRAY_CAN_MODEL);
+		
+		// Play animation sequence (CS:Source OB compatible)
+		SetEntProp(viewModel, Prop_Send, "m_nSequence", 0); // "pshh" sequence
+		SetEntPropFloat(viewModel, Prop_Data, "m_flCycle", 0.0);
+		SetEntPropFloat(viewModel, Prop_Data, "m_flPlaybackRate", 1.0);
+	}
 	
 	if(g_showMsg)
 		PrintToChat(client, " \x04[DEBUG]\x01 Set spray model (index: %d)", g_sprayCanModelIndex);
