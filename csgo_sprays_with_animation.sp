@@ -26,12 +26,12 @@
 #include <sdktools>
 #include <clientprefs>
 
-#tryinclude <custom_weapons>
-#tryinclude <cw_stocks>
-
-// Custom weapons compatibility
+// Custom weapons compatibility (without includes)
 bool g_bCustomWeaponsLoaded = false;
-bool g_bCWStocksLoaded = false;
+int g_iModelIndexOffset = -1;
+int g_iSequenceOffset = -1;
+int g_iCycleOffset = -1;
+int g_iPlaybackRateOffset = -1;
 
 #define SOUND_SPRAY_REL "items/spraycan_spray.wav"
 #define SOUND_SPRAY "items/spraycan_spray.wav"
@@ -110,12 +110,7 @@ public void OnPluginStart()
 	SetConVarString(hCvar, PLUGIN);
 	
 	// Check if custom weapons is loaded
-	#if defined _custom_weapons_included
 	g_bCustomWeaponsLoaded = LibraryExists("custom_weapons");
-	#endif
-	
-	// Check if cw_stocks is available
-	g_bCWStocksLoaded = true; // Assume it's available if included
 	
 	RegConsoleCmd("sm_spray", MakeSpray);
 	RegConsoleCmd("sm_sprays", GetSpray);
@@ -159,7 +154,6 @@ public void OnPluginStart()
 	}
 }
 
-#if defined _custom_weapons_included
 public void OnLibraryAdded(const char[] name)
 {
 	if(StrEqual(name, "custom_weapons"))
@@ -175,7 +169,6 @@ public void OnLibraryRemoved(const char[] name)
 		g_bCustomWeaponsLoaded = false;
 	}
 }
-#endif
 
 public void OnPluginEnd()
 {
@@ -294,11 +287,11 @@ public void OnMapStart()
 	AddFileToDownloadsTable("materials/Models/12konsta/graffiti/v_ballon4ik.vmt");
 	AddFileToDownloadsTable("materials/Models/12konsta/graffiti/v_ballon4ik.vtf");
 	
-	// Initialize offsets for cw_stocks if available
-	if(g_bCWStocksLoaded)
-	{
-		RegisterOffsets();
-	}
+	// Find viewmodel offsets manually
+	g_iModelIndexOffset = FindSendPropInfo("CPredictedViewModel", "m_nModelIndex");
+	g_iSequenceOffset = FindSendPropInfo("CPredictedViewModel", "m_nSequence");
+	g_iCycleOffset = FindDataMapInfo(0, "m_flCycle"); // Will find in first entity
+	g_iPlaybackRateOffset = FindSendPropInfo("CPredictedViewModel", "m_flPlaybackRate");
 	
 	BuildPath(Path_SM, path_decals, sizeof(path_decals), "configs/csgo-sprays/sprays.cfg");
 	ReadDecals();
@@ -357,29 +350,30 @@ public Action Timer_SetSprayModel(Handle timer, int client)
 	// Try different methods to set the viewmodel
 	bool success = false;
 	
-	#if defined _custom_weapons_included
-	// If custom weapons is loaded, check if player has custom weapon
-	if(g_bCustomWeaponsLoaded && CW_IsCurrentlyCustom(client))
+	// Try using manual offsets (like cw_stocks does)
+	if(g_iModelIndexOffset != -1)
 	{
 		if(g_showMsg)
-			PrintToChat(client, " \x04[DEBUG]\x01 Player has custom weapon active, using CW function");
+			PrintToChat(client, " \x04[DEBUG]\x01 Using manual offsets method");
 		
-		// Use custom weapons function to set viewmodel
-		CW_SetViewModelIndex(viewModel, g_sprayCanModelIndex);
-		success = true;
-	}
-	#endif
-	
-	// Try using cw_stocks functions if available
-	if(g_bCWStocksLoaded && !success)
-	{
-		if(g_showMsg)
-			PrintToChat(client, " \x04[DEBUG]\x01 Using CW_Stocks functions");
+		// Set model index using offset
+		SetEntData(viewModel, g_iModelIndexOffset, g_sprayCanModelIndex, 4, true);
 		
-		CSViewModel_SetModelIndex(viewModel, g_sprayCanModelIndex);
-		CSViewModel_SetSequence(viewModel, 0); // "pshh" sequence
-		CSViewModel_SetCycle(viewModel, 0.0);
-		CSViewModel_SetPlaybackRate(viewModel, 1.0);
+		// Set sequence using offset
+		if(g_iSequenceOffset != -1)
+			SetEntData(viewModel, g_iSequenceOffset, 0, 4, true);
+		
+		// Set cycle using offset
+		if(g_iCycleOffset != -1)
+			SetEntDataFloat(viewModel, g_iCycleOffset, 0.0, true);
+			
+		// Set playback rate using offset
+		if(g_iPlaybackRateOffset != -1)
+			SetEntDataFloat(viewModel, g_iPlaybackRateOffset, 1.0, true);
+		
+		// Also set model name
+		SetEntPropString(viewModel, Prop_Data, "m_ModelName", SPRAY_CAN_MODEL);
+		
 		success = true;
 	}
 	
