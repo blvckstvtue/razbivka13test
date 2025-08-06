@@ -41,6 +41,7 @@ int g_sprayElegido[MAXPLAYERS + 1];
 int g_sprayCanModelIndex = -1;
 char g_originalViewModel[MAXPLAYERS + 1][PLATFORM_MAX_PATH];
 int g_originalViewModelIndex[MAXPLAYERS + 1];
+int g_originalActiveWeapon[MAXPLAYERS + 1];
 bool g_isSprayAnimating[MAXPLAYERS + 1];
 Handle g_restoreTimer[MAXPLAYERS + 1];
 
@@ -141,6 +142,7 @@ public void OnPluginStart()
 		g_isSprayAnimating[i] = false;
 		g_restoreTimer[i] = INVALID_HANDLE;
 		g_originalViewModelIndex[i] = -1;
+		g_originalActiveWeapon[i] = -1;
 	}
 }
 
@@ -179,6 +181,7 @@ public void OnClientDisconnect(int client)
 		g_restoreTimer[client] = INVALID_HANDLE;
 	}
 	g_originalViewModelIndex[client] = -1;
+	g_originalActiveWeapon[client] = -1;
 }
 
 public void OnConVarChanged(Handle convar, const char[] oldValue, const char[] newValue)
@@ -243,6 +246,7 @@ public void OnClientPostAdminCheck(int iClient)
 	g_iLastSprayed[iClient] = false;
 	g_isSprayAnimating[iClient] = false;
 	g_originalViewModelIndex[iClient] = -1;
+	g_originalActiveWeapon[iClient] = -1;
 }
 
 public void OnMapStart()
@@ -273,6 +277,13 @@ void StartSprayAnimation(int client)
 	if(!g_useAnimation || g_isSprayAnimating[client] || !IsClientInGame(client) || !IsPlayerAlive(client))
 		return;
 		
+	// Store current active weapon BEFORE doing anything
+	int currentWeapon = GetEntPropEnt(client, Prop_Send, "m_hActiveWeapon");
+	if(currentWeapon != -1 && IsValidEntity(currentWeapon))
+	{
+		g_originalActiveWeapon[client] = currentWeapon;
+	}
+	
 	// Give temporary knife without dropping current weapon
 	int knife = GivePlayerItem(client, "weapon_knife");
 	if(knife == -1)
@@ -363,7 +374,32 @@ public Action Timer_RemoveKnife(Handle timer, int client)
 		}
 	}
 	
+	// Wait a frame then restore original weapon
+	CreateTimer(0.1, Timer_RestoreOriginalWeapon, client, TIMER_FLAG_NO_MAPCHANGE);
+	
 	g_isSprayAnimating[client] = false;
+	
+	return Plugin_Stop;
+}
+
+// Timer to restore the original weapon that was active before spraying
+public Action Timer_RestoreOriginalWeapon(Handle timer, int client)
+{
+	if(!IsClientInGame(client) || !IsPlayerAlive(client))
+		return Plugin_Stop;
+		
+	// Restore original weapon if it still exists and is valid
+	if(g_originalActiveWeapon[client] != -1 && IsValidEntity(g_originalActiveWeapon[client]))
+	{
+		// Check if the weapon is still in player's inventory
+		char weaponName[32];
+		GetEntityClassname(g_originalActiveWeapon[client], weaponName, sizeof(weaponName));
+		
+		// Re-equip the original weapon
+		EquipPlayerWeapon(client, g_originalActiveWeapon[client]);
+	}
+	
+	g_originalActiveWeapon[client] = -1;
 	
 	return Plugin_Stop;
 }
@@ -676,6 +712,7 @@ public Action Event_PlayerDeath(Handle event, const char[] name, bool dontBroadc
 			g_restoreTimer[victim] = INVALID_HANDLE;
 		}
 		g_originalViewModelIndex[victim] = -1;
+		g_originalActiveWeapon[victim] = -1;
 	}
 	
 	return Plugin_Continue;
