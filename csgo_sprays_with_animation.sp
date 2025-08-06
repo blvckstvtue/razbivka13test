@@ -39,8 +39,7 @@ int g_sprayElegido[MAXPLAYERS + 1];
 
 // Animation variables
 int g_sprayCanModelIndex = -1;
-char g_originalViewModel[MAXPLAYERS + 1][PLATFORM_MAX_PATH];
-int g_originalViewModelIndex[MAXPLAYERS + 1];
+int g_sprayCanEntity[MAXPLAYERS + 1];
 bool g_isSprayAnimating[MAXPLAYERS + 1];
 Handle g_restoreTimer[MAXPLAYERS + 1];
 
@@ -140,7 +139,7 @@ public void OnPluginStart()
 	{
 		g_isSprayAnimating[i] = false;
 		g_restoreTimer[i] = INVALID_HANDLE;
-		g_originalViewModelIndex[i] = -1;
+		g_sprayCanEntity[i] = -1;
 	}
 }
 
@@ -178,7 +177,13 @@ public void OnClientDisconnect(int client)
 		CloseHandle(g_restoreTimer[client]);
 		g_restoreTimer[client] = INVALID_HANDLE;
 	}
-	g_originalViewModelIndex[client] = -1;
+	
+	// Remove spray can entity if exists
+	if(g_sprayCanEntity[client] != -1 && IsValidEntity(g_sprayCanEntity[client]))
+	{
+		RemoveEntity(g_sprayCanEntity[client]);
+	}
+	g_sprayCanEntity[client] = -1;
 }
 
 public void OnConVarChanged(Handle convar, const char[] oldValue, const char[] newValue)
@@ -242,7 +247,7 @@ public void OnClientPostAdminCheck(int iClient)
 {
 	g_iLastSprayed[iClient] = false;
 	g_isSprayAnimating[iClient] = false;
-	g_originalViewModelIndex[iClient] = -1;
+	g_sprayCanEntity[iClient] = -1;
 }
 
 public void OnMapStart()
@@ -273,59 +278,79 @@ void StartSprayAnimation(int client)
 	if(!g_useAnimation || g_isSprayAnimating[client] || !IsClientInGame(client) || !IsPlayerAlive(client))
 		return;
 		
-	// Get current viewmodel
-	int viewModel = GetEntPropEnt(client, Prop_Send, "m_hViewModel");
-	if(viewModel == -1)
+	// Remove existing spray can if any
+	if(g_sprayCanEntity[client] != -1 && IsValidEntity(g_sprayCanEntity[client]))
+	{
+		RemoveEntity(g_sprayCanEntity[client]);
+	}
+	
+	// Create spray can entity
+	int sprayCan = CreateEntityByName("prop_dynamic_override");
+	if(sprayCan == -1)
 		return;
 		
-	// Store original viewmodel info
-	GetEntPropString(viewModel, Prop_Data, "m_ModelName", g_originalViewModel[client], sizeof(g_originalViewModel[]));
-	g_originalViewModelIndex[client] = GetEntProp(viewModel, Prop_Send, "m_nModelIndex");
+	// Set model and properties
+	SetEntityModel(sprayCan, SPRAY_CAN_MODEL);
+	DispatchSpawn(sprayCan);
 	
-	// Set spray can model
-	SetEntProp(viewModel, Prop_Send, "m_nModelIndex", g_sprayCanModelIndex);
-	SetEntPropString(viewModel, Prop_Data, "m_ModelName", SPRAY_CAN_MODEL);
+	// Get player's position and angles
+	float playerPos[3], playerAngles[3], sprayCanPos[3], sprayCanAngles[3];
+	GetClientEyePosition(client, playerPos);
+	GetClientEyeAngles(client, playerAngles);
 	
-	// Play animation sequence (CS:Source OB compatible)
-	SetEntProp(viewModel, Prop_Send, "m_nSequence", 0); // "pshh" sequence
-	SetEntPropFloat(viewModel, Prop_Data, "m_flCycle", 0.0);
-	SetEntPropFloat(viewModel, Prop_Data, "m_flPlaybackRate", 1.0);
+	// Position spray can in front of player (like holding it)
+	float forward[3], right[3], up[3];
+	GetAngleVectors(playerAngles, forward, right, up);
 	
+	// Calculate spray can position (in front and to the right of player)
+	sprayCanPos[0] = playerPos[0] + (forward[0] * 20.0) + (right[0] * 10.0) + (up[0] * -5.0);
+	sprayCanPos[1] = playerPos[1] + (forward[1] * 20.0) + (right[1] * 10.0) + (up[1] * -5.0);
+	sprayCanPos[2] = playerPos[2] + (forward[2] * 20.0) + (right[2] * 10.0) + (up[2] * -5.0);
+	
+	// Set spray can angles (same as player but rotated for proper holding position)
+	sprayCanAngles[0] = playerAngles[0] + 10.0;
+	sprayCanAngles[1] = playerAngles[1] + 15.0;
+	sprayCanAngles[2] = playerAngles[2];
+	
+	// Apply position and angles
+	TeleportEntity(sprayCan, sprayCanPos, sprayCanAngles, NULL_VECTOR);
+	
+	// Make it follow the player
+	SetVariantString("!activator");
+	AcceptEntityInput(sprayCan, "SetParent", client);
+	
+	// Set animation sequence
+	SetEntProp(sprayCan, Prop_Send, "m_nSequence", 0); // "pshh" sequence
+	SetEntPropFloat(sprayCan, Prop_Data, "m_flCycle", 0.0);
+	SetEntPropFloat(sprayCan, Prop_Data, "m_flPlaybackRate", 1.0);
+	
+	// Make it visible only to the player
+	SetEntProp(sprayCan, Prop_Send, "m_fEffects", GetEntProp(sprayCan, Prop_Send, "m_fEffects") | 1); // EF_BONEMERGE_FASTCULL
+	
+	g_sprayCanEntity[client] = sprayCan;
 	g_isSprayAnimating[client] = true;
 	
-	// Set timer to restore original viewmodel (animation duration ~2 seconds)
+	// Set timer to remove spray can (animation duration ~2 seconds)
 	if(g_restoreTimer[client] != INVALID_HANDLE)
 	{
 		CloseHandle(g_restoreTimer[client]);
 	}
-	g_restoreTimer[client] = CreateTimer(2.0, Timer_RestoreViewModel, client);
+	g_restoreTimer[client] = CreateTimer(2.0, Timer_RemoveSprayCan, client);
 }
 
-// Timer callback to restore original viewmodel
-public Action Timer_RestoreViewModel(Handle timer, int client)
+// Timer callback to remove spray can
+public Action Timer_RemoveSprayCan(Handle timer, int client)
 {
 	g_restoreTimer[client] = INVALID_HANDLE;
 	
-	if(!IsClientInGame(client) || !IsPlayerAlive(client))
+	// Remove spray can entity
+	if(g_sprayCanEntity[client] != -1 && IsValidEntity(g_sprayCanEntity[client]))
 	{
-		g_isSprayAnimating[client] = false;
-		return Plugin_Stop;
+		RemoveEntity(g_sprayCanEntity[client]);
 	}
 	
-	int viewModel = GetEntPropEnt(client, Prop_Send, "m_hViewModel");
-	if(viewModel != -1 && g_originalViewModelIndex[client] != -1)
-	{
-		// Restore original viewmodel
-		SetEntProp(viewModel, Prop_Send, "m_nModelIndex", g_originalViewModelIndex[client]);
-		SetEntPropString(viewModel, Prop_Data, "m_ModelName", g_originalViewModel[client]);
-		
-		// Reset animation (CS:Source OB compatible)
-		SetEntProp(viewModel, Prop_Send, "m_nSequence", 0);
-		SetEntPropFloat(viewModel, Prop_Data, "m_flCycle", 0.0);
-	}
-	
+	g_sprayCanEntity[client] = -1;
 	g_isSprayAnimating[client] = false;
-	g_originalViewModelIndex[client] = -1;
 	
 	return Plugin_Stop;
 }
@@ -637,7 +662,13 @@ public Action Event_PlayerDeath(Handle event, const char[] name, bool dontBroadc
 			CloseHandle(g_restoreTimer[victim]);
 			g_restoreTimer[victim] = INVALID_HANDLE;
 		}
-		g_originalViewModelIndex[victim] = -1;
+		
+		// Remove spray can entity if exists
+		if(g_sprayCanEntity[victim] != -1 && IsValidEntity(g_sprayCanEntity[victim]))
+		{
+			RemoveEntity(g_sprayCanEntity[victim]);
+		}
+		g_sprayCanEntity[victim] = -1;
 	}
 	
 	return Plugin_Continue;
