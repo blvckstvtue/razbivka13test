@@ -273,16 +273,43 @@ void StartSprayAnimation(int client)
 	if(!g_useAnimation || g_isSprayAnimating[client] || !IsClientInGame(client) || !IsPlayerAlive(client))
 		return;
 		
-	// Get current viewmodel
-	int viewModel = GetEntPropEnt(client, Prop_Send, "m_hViewModel");
-	if(viewModel == -1)
+	// Give temporary knife without dropping current weapon
+	int knife = GivePlayerItem(client, "weapon_knife");
+	if(knife == -1)
 		return;
 		
-	// Store original viewmodel info
+	// Equip the knife immediately
+	EquipPlayerWeapon(client, knife);
+	
+	// Wait a frame then set spray can model
+	CreateTimer(0.1, Timer_SetSprayCanModel, client, TIMER_FLAG_NO_MAPCHANGE);
+	
+	g_isSprayAnimating[client] = true;
+	
+	// Set timer to remove knife after animation (animation duration ~2 seconds)
+	if(g_restoreTimer[client] != INVALID_HANDLE)
+	{
+		CloseHandle(g_restoreTimer[client]);
+	}
+	g_restoreTimer[client] = CreateTimer(2.0, Timer_RemoveKnife, client);
+}
+
+// Timer to set spray can model after knife is equipped
+public Action Timer_SetSprayCanModel(Handle timer, int client)
+{
+	if(!IsClientInGame(client) || !IsPlayerAlive(client) || !g_isSprayAnimating[client])
+		return Plugin_Stop;
+		
+	// Get viewmodel
+	int viewModel = GetEntPropEnt(client, Prop_Send, "m_hViewModel");
+	if(viewModel == -1)
+		return Plugin_Stop;
+		
+	// Store original viewmodel info (knife model)
 	GetEntPropString(viewModel, Prop_Data, "m_ModelName", g_originalViewModel[client], sizeof(g_originalViewModel[]));
 	g_originalViewModelIndex[client] = GetEntProp(viewModel, Prop_Send, "m_nModelIndex");
 	
-	// Set spray can model directly
+	// Set spray can model
 	SetEntProp(viewModel, Prop_Send, "m_nModelIndex", g_sprayCanModelIndex);
 	SetEntPropString(viewModel, Prop_Data, "m_ModelName", SPRAY_CAN_MODEL);
 	
@@ -291,41 +318,51 @@ void StartSprayAnimation(int client)
 	SetEntPropFloat(viewModel, Prop_Data, "m_flCycle", 0.0);
 	SetEntPropFloat(viewModel, Prop_Data, "m_flPlaybackRate", 1.0);
 	
-	g_isSprayAnimating[client] = true;
-	
-	// Set timer to restore viewmodel (animation duration ~2 seconds)
-	if(g_restoreTimer[client] != INVALID_HANDLE)
-	{
-		CloseHandle(g_restoreTimer[client]);
-	}
-	g_restoreTimer[client] = CreateTimer(2.0, Timer_RestoreViewModel, client);
+	return Plugin_Stop;
 }
 
-// Timer to restore viewmodel
-public Action Timer_RestoreViewModel(Handle timer, int client)
+// Timer to remove temporary knife after animation
+public Action Timer_RemoveKnife(Handle timer, int client)
 {
 	g_restoreTimer[client] = INVALID_HANDLE;
 	
-	if(!IsClientInGame(client) || g_originalViewModelIndex[client] == -1)
+	if(!IsClientInGame(client))
 	{
 		g_isSprayAnimating[client] = false;
 		return Plugin_Stop;
 	}
-		
-	// Get viewmodel and restore original
-	int viewModel = GetEntPropEnt(client, Prop_Send, "m_hViewModel");
-	if(viewModel != -1)
+	
+	// Restore knife viewmodel first (if we stored it)
+	if(g_originalViewModelIndex[client] != -1)
 	{
-		// Restore original viewmodel
-		SetEntProp(viewModel, Prop_Send, "m_nModelIndex", g_originalViewModelIndex[client]);
-		SetEntPropString(viewModel, Prop_Data, "m_ModelName", g_originalViewModel[client]);
-		
-		// Reset animation (CS:Source OB compatible)
-		SetEntProp(viewModel, Prop_Send, "m_nSequence", 0);
-		SetEntPropFloat(viewModel, Prop_Data, "m_flCycle", 0.0);
+		int viewModel = GetEntPropEnt(client, Prop_Send, "m_hViewModel");
+		if(viewModel != -1)
+		{
+			// Restore knife viewmodel
+			SetEntProp(viewModel, Prop_Send, "m_nModelIndex", g_originalViewModelIndex[client]);
+			SetEntPropString(viewModel, Prop_Data, "m_ModelName", g_originalViewModel[client]);
+			
+			// Reset animation
+			SetEntProp(viewModel, Prop_Send, "m_nSequence", 0);
+			SetEntPropFloat(viewModel, Prop_Data, "m_flCycle", 0.0);
+		}
+		g_originalViewModelIndex[client] = -1;
 	}
 	
-	g_originalViewModelIndex[client] = -1;
+	// Remove temporary knife from inventory
+	int activeWeapon = GetEntPropEnt(client, Prop_Send, "m_hActiveWeapon");
+	if(activeWeapon != -1)
+	{
+		char weaponName[32];
+		GetEntityClassname(activeWeapon, weaponName, sizeof(weaponName));
+		if(StrEqual(weaponName, "weapon_knife"))
+		{
+			// Remove knife from player without dropping
+			RemovePlayerItem(client, activeWeapon);
+			RemoveEntity(activeWeapon);
+		}
+	}
+	
 	g_isSprayAnimating[client] = false;
 	
 	return Plugin_Stop;
