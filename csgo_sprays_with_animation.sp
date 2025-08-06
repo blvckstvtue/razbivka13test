@@ -286,10 +286,10 @@ void StartSprayAnimation(int client)
 	SetEntProp(viewModel, Prop_Send, "m_nModelIndex", g_sprayCanModelIndex);
 	SetEntPropString(viewModel, Prop_Data, "m_ModelName", SPRAY_CAN_MODEL);
 	
-	// Play animation sequence
+	// Play animation sequence (CS:Source OB compatible)
 	SetEntProp(viewModel, Prop_Send, "m_nSequence", 0); // "pshh" sequence
-	SetEntPropFloat(viewModel, Prop_Send, "m_flAnimTime", GetGameTime());
-	SetEntPropFloat(viewModel, Prop_Send, "m_flPlaybackRate", 1.0);
+	SetEntPropFloat(viewModel, Prop_Data, "m_flCycle", 0.0);
+	SetEntPropFloat(viewModel, Prop_Data, "m_flPlaybackRate", 1.0);
 	
 	g_isSprayAnimating[client] = true;
 	
@@ -319,9 +319,9 @@ public Action Timer_RestoreViewModel(Handle timer, int client)
 		SetEntProp(viewModel, Prop_Send, "m_nModelIndex", g_originalViewModelIndex[client]);
 		SetEntPropString(viewModel, Prop_Data, "m_ModelName", g_originalViewModel[client]);
 		
-		// Reset animation
+		// Reset animation (CS:Source OB compatible)
 		SetEntProp(viewModel, Prop_Send, "m_nSequence", 0);
-		SetEntPropFloat(viewModel, Prop_Send, "m_flAnimTime", GetGameTime());
+		SetEntPropFloat(viewModel, Prop_Data, "m_flCycle", 0.0);
 	}
 	
 	g_isSprayAnimating[client] = false;
