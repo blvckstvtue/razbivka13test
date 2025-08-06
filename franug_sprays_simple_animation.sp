@@ -2,10 +2,12 @@
 #pragma newdecls required
 */
 
-/*  SM Franug CSGO Sprays Enhanced with Animation
+/*  SM Franug CSGO Sprays with Simple Animation
 *
+* Simplified version that avoids CS:GO viewmodel property issues
+* 
 * Original Copyright (C) 2017 Francisco 'Franc1sco' García
-* Enhanced with graffiti balloon animation
+* Enhanced with simple graffiti balloon model replacement
 * 
 * This program is free software: you can redistribute it and/or modify it
 * under the terms of the GNU General Public License as published by the Free
@@ -27,9 +29,9 @@
 #define SOUND_SPRAY_REL "*/items/spraycan_spray.wav"
 #define SOUND_SPRAY "items/spraycan_spray.wav"
 
-// Graffiti balloon model and animation
+// Graffiti balloon model
 #define GRAFFITI_MODEL "models/12konsta/graffiti/v_ballon4ik.mdl"
-#define GRAFFITI_ANIM_DURATION 2.0 // Duration of the spray animation in seconds
+#define GRAFFITI_ANIM_DURATION 1.5 // Shorter duration for simplicity
 
 #define MAX_SPRAYS 128
 #define MAX_MAP_SPRAYS 200
@@ -38,12 +40,10 @@ int g_iLastSprayed[MAXPLAYERS + 1];
 char path_decals[PLATFORM_MAX_PATH];
 int g_sprayElegido[MAXPLAYERS + 1];
 
-// Animation system variables
+// Simple animation system variables
 int g_iGraffitiModelIndex = 0;
 bool g_bIsPlayingSprayAnim[MAXPLAYERS + 1] = {false, ...};
 int g_iStoredViewModel[MAXPLAYERS + 1] = {-1, ...};
-int g_iStoredSequence[MAXPLAYERS + 1] = {0, ...};
-float g_fStoredCycle[MAXPLAYERS + 1] = {0.0, ...};
 Handle g_hAnimTimer[MAXPLAYERS + 1] = {INVALID_HANDLE, ...};
 
 int g_time;
@@ -87,13 +87,13 @@ int g_sprayMapCount = 0;
 // Current index of the last spray in the array; this resets to 0 when g_maxMapSprays is reached (FIFO)
 int g_sprayIndexLast = 0;
 
-#define PLUGIN "1.5.0"
+#define PLUGIN "1.5.1"
 
 public Plugin myinfo =
 {
-	name = "SM Franug CSGO Sprays Enhanced",
+	name = "SM Franug CSGO Sprays Simple Animation",
 	author = "Franc1sco Steam: franug, Enhanced by Assistant",
-	description = "Use sprays in CSGO with graffiti balloon animation",
+	description = "Use sprays in CSGO with simple graffiti balloon model",
 	version = PLUGIN,
 	url = "http://steamcommunity.com/id/franug"
 };
@@ -101,7 +101,7 @@ public Plugin myinfo =
 public void OnPluginStart()
 {
 	c_GameSprays = RegClientCookie("Sprays", "Sprays", CookieAccess_Private);
-	hCvar = CreateConVar("sm_franugsprays_version", PLUGIN, "SM Franug CSGO Sprays Enhanced", FCVAR_NOTIFY|FCVAR_DONTRECORD);
+	hCvar = CreateConVar("sm_franugsprays_version", PLUGIN, "SM Franug CSGO Sprays Simple Animation", FCVAR_NOTIFY|FCVAR_DONTRECORD);
 	SetConVarString(hCvar, PLUGIN);
 
 	RegConsoleCmd("sm_spray", MakeSpray);
@@ -115,7 +115,7 @@ public void OnPluginStart()
 	h_maxMapSprays = CreateConVar("sm_csgosprays_mapmax", "25", "Maximum ammount of sprays on the map");
 	h_resetTimeOnKill = CreateConVar("sm_csgosprays_reset_time_on_kill", "1", "Reset the cooldown on a kill");
 	h_showMsg = CreateConVar("sm_csgosprays_show_messages", "1", "Print messages of this plugin to the players");
-	h_enableAnimation = CreateConVar("sm_csgosprays_enable_animation", "1", "Enable graffiti balloon animation during spraying");
+	h_enableAnimation = CreateConVar("sm_csgosprays_enable_animation", "1", "Enable simple graffiti balloon model during spraying");
 
 	g_time = GetConVarInt(h_time);
 	g_distance = GetConVarInt(h_distance);
@@ -173,8 +173,6 @@ public void OnClientDisconnect(int client)
 	// Reset animation state
 	g_bIsPlayingSprayAnim[client] = false;
 	g_iStoredViewModel[client] = -1;
-	g_iStoredSequence[client] = 0;
-	g_fStoredCycle[client] = 0.0;
 	
 	if(AreClientCookiesCached(client))
 	{
@@ -247,8 +245,6 @@ public void OnClientPostAdminCheck(int iClient)
 	// Initialize animation variables
 	g_bIsPlayingSprayAnim[iClient] = false;
 	g_iStoredViewModel[iClient] = -1;
-	g_iStoredSequence[iClient] = 0;
-	g_fStoredCycle[iClient] = 0.0;
 	g_hAnimTimer[iClient] = INVALID_HANDLE;
 }
 
@@ -274,49 +270,27 @@ public void OnMapStart()
 	g_sprayIndexLast = 0;
 }
 
-// Function to store current viewmodel state
+// Simple function to store current viewmodel (model index only)
 void StoreCurrentViewModel(int client)
 {
 	int viewModel = GetEntPropEnt(client, Prop_Send, "m_hViewModel");
 	if(viewModel > 0 && IsValidEntity(viewModel))
 	{
 		g_iStoredViewModel[client] = GetEntProp(viewModel, Prop_Send, "m_nModelIndex");
-		
-		// Safely get sequence - use try/catch approach
-		if(HasEntProp(viewModel, Prop_Send, "m_nSequence"))
-		{
-			g_iStoredSequence[client] = GetEntProp(viewModel, Prop_Send, "m_nSequence");
-		}
-		else
-		{
-			g_iStoredSequence[client] = 0;
-		}
-		
-		// m_flCycle is not reliable in CS:GO, skip it
-		g_fStoredCycle[client] = 0.0;
 	}
 }
 
-// Function to switch to graffiti balloon viewmodel
+// Simple function to switch to graffiti balloon viewmodel (model only)
 void SetGraffitiViewModel(int client)
 {
 	int viewModel = GetEntPropEnt(client, Prop_Send, "m_hViewModel");
 	if(viewModel > 0 && IsValidEntity(viewModel))
 	{
 		SetEntProp(viewModel, Prop_Send, "m_nModelIndex", g_iGraffitiModelIndex);
-		
-		// Safely set sequence if property exists
-		if(HasEntProp(viewModel, Prop_Send, "m_nSequence"))
-		{
-			SetEntProp(viewModel, Prop_Send, "m_nSequence", 0); // "pshh" animation sequence
-		}
-		
-		// Skip cycle and playback rate for CS:GO compatibility
-		// These properties are handled differently in CS:GO
 	}
 }
 
-// Function to restore original viewmodel
+// Simple function to restore original viewmodel (model only)
 void RestoreOriginalViewModel(int client)
 {
 	if(!g_bIsPlayingSprayAnim[client] || g_iStoredViewModel[client] == -1)
@@ -326,20 +300,10 @@ void RestoreOriginalViewModel(int client)
 	if(viewModel > 0 && IsValidEntity(viewModel))
 	{
 		SetEntProp(viewModel, Prop_Send, "m_nModelIndex", g_iStoredViewModel[client]);
-		
-		// Safely restore sequence if property exists and we have a valid stored value
-		if(HasEntProp(viewModel, Prop_Send, "m_nSequence") && g_iStoredSequence[client] >= 0)
-		{
-			SetEntProp(viewModel, Prop_Send, "m_nSequence", g_iStoredSequence[client]);
-		}
-		
-		// Skip cycle restoration - not reliable in CS:GO
 	}
 	
 	g_bIsPlayingSprayAnim[client] = false;
 	g_iStoredViewModel[client] = -1;
-	g_iStoredSequence[client] = 0;
-	g_fStoredCycle[client] = 0.0;
 }
 
 // Timer callback to restore original viewmodel
@@ -356,14 +320,12 @@ public Action Timer_RestoreViewModel(Handle timer, int client)
 		// Clean up state even if client is not valid
 		g_bIsPlayingSprayAnim[client] = false;
 		g_iStoredViewModel[client] = -1;
-		g_iStoredSequence[client] = 0;
-		g_fStoredCycle[client] = 0.0;
 	}
 	
 	return Plugin_Stop;
 }
 
-// Enhanced spray function with animation
+// Simple spray function with model animation only
 Action PerformSprayWithAnimation(int client, float fClientEyeViewPoint[3])
 {
 	// Store current viewmodel if animation is enabled and client is valid
@@ -374,7 +336,7 @@ Action PerformSprayWithAnimation(int client, float fClientEyeViewPoint[3])
 		{
 			if(g_showMsg)
 			{
-				PrintToChat(client, " \x04[SM_CSGO-SPRAYS]\x01 Graffiti animation model not loaded properly!");
+				PrintToChat(client, " \x04[SM_CSGO-SPRAYS]\x01 Graffiti model not loaded properly!");
 			}
 		}
 		else
@@ -477,7 +439,7 @@ public Action MakeSpray(int iClient, int args)
 		return Plugin_Handled;
 	}
 
-	// Perform spray with animation
+	// Perform spray with simple animation
 	PerformSprayWithAnimation(iClient, fClientEyeViewPoint);
 
 	EmitSoundToAll(SOUND_SPRAY_REL, iClient, SNDCHAN_AUTO, SNDLEVEL_NORMAL, SND_NOFLAGS, 0.6);
@@ -649,7 +611,7 @@ public Action OnPlayerRunCmd(int iClient, int &buttons, int &impulse)
 			return;
 		}
 
-		// Perform spray with animation
+		// Perform spray with simple animation
 		PerformSprayWithAnimation(iClient, fClientEyeViewPoint);
 
 		if(g_showMsg)
