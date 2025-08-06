@@ -276,13 +276,46 @@ void StartSprayAnimation(int client)
 	// Get current viewmodel
 	int viewModel = GetEntPropEnt(client, Prop_Send, "m_hViewModel");
 	if(viewModel == -1)
+	{
+		if(g_showMsg)
+			PrintToChat(client, " \x04[DEBUG]\x01 No viewmodel found!");
 		return;
+	}
 		
 	// Store original viewmodel info
 	GetEntPropString(viewModel, Prop_Data, "m_ModelName", g_originalViewModel[client], sizeof(g_originalViewModel[]));
 	g_originalViewModelIndex[client] = GetEntProp(viewModel, Prop_Send, "m_nModelIndex");
 	
-	// Set spray can model directly
+	if(g_showMsg)
+		PrintToChat(client, " \x04[DEBUG]\x01 Original model: %s (index: %d)", g_originalViewModel[client], g_originalViewModelIndex[client]);
+	
+	g_isSprayAnimating[client] = true;
+	
+	// Use multiple timers to force the model change
+	CreateTimer(0.1, Timer_SetSprayModel, client, TIMER_FLAG_NO_MAPCHANGE);
+	CreateTimer(0.2, Timer_SetSprayModel, client, TIMER_FLAG_NO_MAPCHANGE);
+	CreateTimer(0.3, Timer_SetSprayModel, client, TIMER_FLAG_NO_MAPCHANGE);
+	
+	// Set timer to restore viewmodel (animation duration ~2 seconds)
+	if(g_restoreTimer[client] != INVALID_HANDLE)
+	{
+		CloseHandle(g_restoreTimer[client]);
+	}
+	g_restoreTimer[client] = CreateTimer(2.5, Timer_RestoreViewModel, client);
+}
+
+// Timer to set spray model (multiple attempts to override custom weapons)
+public Action Timer_SetSprayModel(Handle timer, int client)
+{
+	if(!IsClientInGame(client) || !IsPlayerAlive(client) || !g_isSprayAnimating[client])
+		return Plugin_Stop;
+		
+	// Get viewmodel
+	int viewModel = GetEntPropEnt(client, Prop_Send, "m_hViewModel");
+	if(viewModel == -1)
+		return Plugin_Stop;
+	
+	// Force set spray can model
 	SetEntProp(viewModel, Prop_Send, "m_nModelIndex", g_sprayCanModelIndex);
 	SetEntPropString(viewModel, Prop_Data, "m_ModelName", SPRAY_CAN_MODEL);
 	
@@ -291,14 +324,10 @@ void StartSprayAnimation(int client)
 	SetEntPropFloat(viewModel, Prop_Data, "m_flCycle", 0.0);
 	SetEntPropFloat(viewModel, Prop_Data, "m_flPlaybackRate", 1.0);
 	
-	g_isSprayAnimating[client] = true;
+	if(g_showMsg)
+		PrintToChat(client, " \x04[DEBUG]\x01 Set spray model (index: %d)", g_sprayCanModelIndex);
 	
-	// Set timer to restore viewmodel (animation duration ~2 seconds)
-	if(g_restoreTimer[client] != INVALID_HANDLE)
-	{
-		CloseHandle(g_restoreTimer[client]);
-	}
-	g_restoreTimer[client] = CreateTimer(2.0, Timer_RestoreViewModel, client);
+	return Plugin_Stop;
 }
 
 // Timer to restore viewmodel
