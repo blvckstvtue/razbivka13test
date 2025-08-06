@@ -26,7 +26,12 @@
 #include <sdktools>
 #include <clientprefs>
 
-#define SOUND_SPRAY_REL "*/items/spraycan_spray.wav"
+#tryinclude <custom_weapons>
+
+// Custom weapons compatibility
+bool g_bCustomWeaponsLoaded = false;
+
+#define SOUND_SPRAY_REL "items/spraycan_spray.wav"
 #define SOUND_SPRAY "items/spraycan_spray.wav"
 #define SPRAY_CAN_MODEL "models/12konsta/graffiti/v_ballon4ik.mdl"
 
@@ -102,6 +107,11 @@ public void OnPluginStart()
 	hCvar = CreateConVar("sm_franugsprays_version", PLUGIN, "SM Franug CSGO Sprays", FCVAR_NOTIFY|FCVAR_DONTRECORD);
 	SetConVarString(hCvar, PLUGIN);
 	
+	// Check if custom weapons is loaded
+	#if defined _custom_weapons_included
+	g_bCustomWeaponsLoaded = LibraryExists("custom_weapons");
+	#endif
+	
 	RegConsoleCmd("sm_spray", MakeSpray);
 	RegConsoleCmd("sm_sprays", GetSpray);
 	HookEvent("round_start", roundStart);
@@ -143,6 +153,24 @@ public void OnPluginStart()
 		g_originalViewModelIndex[i] = -1;
 	}
 }
+
+#if defined _custom_weapons_included
+public void OnLibraryAdded(const char[] name)
+{
+	if(StrEqual(name, "custom_weapons"))
+	{
+		g_bCustomWeaponsLoaded = true;
+	}
+}
+
+public void OnLibraryRemoved(const char[] name)
+{
+	if(StrEqual(name, "custom_weapons"))
+	{
+		g_bCustomWeaponsLoaded = false;
+	}
+}
+#endif
 
 public void OnPluginEnd()
 {
@@ -251,7 +279,7 @@ public void OnMapStart()
 	Format(sBuffer, sizeof(sBuffer), "sound/%s", SOUND_SPRAY);
 	AddFileToDownloadsTable(sBuffer);
 	
-	FakePrecacheSound(SOUND_SPRAY_REL);
+	PrecacheSound(SOUND_SPRAY_REL, true);
 	
 	// Precache and add spray can model to downloads
 	g_sprayCanModelIndex = PrecacheModel(SPRAY_CAN_MODEL, true);
@@ -315,8 +343,25 @@ public Action Timer_SetSprayModel(Handle timer, int client)
 	if(viewModel == -1)
 		return Plugin_Stop;
 	
-	// Force set spray can model
-	SetEntProp(viewModel, Prop_Send, "m_nModelIndex", g_sprayCanModelIndex);
+	#if defined _custom_weapons_included
+	// If custom weapons is loaded, check if player has custom weapon
+	if(g_bCustomWeaponsLoaded && CW_IsCurrentlyCustom(client))
+	{
+		if(g_showMsg)
+			PrintToChat(client, " \x04[DEBUG]\x01 Player has custom weapon active, using CW function");
+		
+		// Use custom weapons function to set viewmodel
+		CW_SetViewModelIndex(viewModel, g_sprayCanModelIndex);
+	}
+	else
+	{
+	#endif
+		// Standard method
+		SetEntProp(viewModel, Prop_Send, "m_nModelIndex", g_sprayCanModelIndex);
+	#if defined _custom_weapons_included
+	}
+	#endif
+	
 	SetEntPropString(viewModel, Prop_Data, "m_ModelName", SPRAY_CAN_MODEL);
 	
 	// Play animation sequence (CS:Source OB compatible)
