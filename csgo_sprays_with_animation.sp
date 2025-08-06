@@ -33,6 +33,9 @@ int g_iSequenceOffset = -1;
 int g_iCycleOffset = -1;
 int g_iPlaybackRateOffset = -1;
 
+// Plugin handles for temporary unloading
+Handle g_hCustomWeaponsPlugin = INVALID_HANDLE;
+
 #define SOUND_SPRAY_REL "items/spraycan_spray.wav"
 #define SOUND_SPRAY "items/spraycan_spray.wav"
 #define SPRAY_CAN_MODEL "models/12konsta/graffiti/v_ballon4ik.mdl"
@@ -111,6 +114,12 @@ public void OnPluginStart()
 	
 	// Check if custom weapons is loaded
 	g_bCustomWeaponsLoaded = LibraryExists("custom_weapons");
+	
+	// Find custom weapons plugin handle
+	if(g_bCustomWeaponsLoaded)
+	{
+		g_hCustomWeaponsPlugin = FindPluginByFile("custom_weapons.smx");
+	}
 	
 	RegConsoleCmd("sm_spray", MakeSpray);
 	RegConsoleCmd("sm_sprays", GetSpray);
@@ -323,16 +332,20 @@ void StartSprayAnimation(int client)
 	
 	g_isSprayAnimating[client] = true;
 	
+	// Temporarily pause custom weapons plugin if possible
+	if(g_hCustomWeaponsPlugin != INVALID_HANDLE && GetPluginStatus(g_hCustomWeaponsPlugin) == Plugin_Running)
+	{
+		if(g_showMsg)
+			PrintToChat(client, " \x04[DEBUG]\x01 Temporarily pausing custom weapons plugin");
+		SetPluginStatus(g_hCustomWeaponsPlugin, Plugin_Paused);
+	}
+	
 	// Try immediate model change
 	Timer_SetSprayModel(INVALID_HANDLE, client);
 	
-	// Use multiple timers to force the model change and keep it active
-	CreateTimer(0.1, Timer_SetSprayModel, client, TIMER_FLAG_NO_MAPCHANGE | TIMER_REPEAT);
-	CreateTimer(0.2, Timer_SetSprayModel, client, TIMER_FLAG_NO_MAPCHANGE);
-	CreateTimer(0.3, Timer_SetSprayModel, client, TIMER_FLAG_NO_MAPCHANGE);
+	// Use fewer timers since custom weapons is paused
+	CreateTimer(0.1, Timer_SetSprayModel, client, TIMER_FLAG_NO_MAPCHANGE);
 	CreateTimer(0.5, Timer_SetSprayModel, client, TIMER_FLAG_NO_MAPCHANGE);
-	CreateTimer(1.0, Timer_SetSprayModel, client, TIMER_FLAG_NO_MAPCHANGE);
-	CreateTimer(1.5, Timer_SetSprayModel, client, TIMER_FLAG_NO_MAPCHANGE);
 	
 	// Set timer to restore viewmodel (animation duration ~2.5 seconds)
 	if(g_restoreTimer[client] != INVALID_HANDLE)
@@ -429,6 +442,13 @@ public Action Timer_RestoreViewModel(Handle timer, int client)
 	if(!IsClientInGame(client) || g_originalViewModelIndex[client] == -1)
 	{
 		g_isSprayAnimating[client] = false;
+		
+		// Resume custom weapons plugin
+		if(g_hCustomWeaponsPlugin != INVALID_HANDLE && GetPluginStatus(g_hCustomWeaponsPlugin) == Plugin_Paused)
+		{
+			SetPluginStatus(g_hCustomWeaponsPlugin, Plugin_Running);
+		}
+		
 		return Plugin_Stop;
 	}
 		
@@ -447,6 +467,15 @@ public Action Timer_RestoreViewModel(Handle timer, int client)
 	
 	g_originalViewModelIndex[client] = -1;
 	g_isSprayAnimating[client] = false;
+	
+	if(g_showMsg)
+		PrintToChat(client, " \x04[DEBUG]\x01 Resuming custom weapons plugin");
+	
+	// Resume custom weapons plugin
+	if(g_hCustomWeaponsPlugin != INVALID_HANDLE && GetPluginStatus(g_hCustomWeaponsPlugin) == Plugin_Paused)
+	{
+		SetPluginStatus(g_hCustomWeaponsPlugin, Plugin_Running);
+	}
 	
 	return Plugin_Stop;
 }
